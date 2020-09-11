@@ -6,15 +6,14 @@ import javafx.scene.control.Button;
 
 /**
  * Pelisysteemi-luokka pitää kirjaa vuoroista ja pelilaudasta. 
- */
+ */ 
 public class Pelisysteemi {
-    private int vuoro, taulukonPituus;
+    private int vuoro;
     private String[][] taulukko;
     
     public Pelisysteemi() {
         vuoro = 0;
         this.taulukko = new String[10][10];  
-        taulukonPituus = taulukko.length;
     }
 
     public String getVuoro() {
