@@ -1,4 +1,4 @@
-<h1><Määrittelydokumentti/h1>
+<h1>Määrittelydokumentti</h1>
 Luon tekoälyn laajennetulle ristinollapelille Minimax-algoritmia apuna käyttäen. Impletoin myös AlphaBeta-karsimisien algoritmin tehokkuuden parantamiseksi. </br>
 Sovellukseni tulee käyttämään ainakin String-olion valmista metodia "contains", Math-luokan Min() ja Max()- metodeita sekä Javan valmista luokkaa StringBuilder. Tulen itse tekemään kyseiset metodit/oliot.
 Algoritmin syötteenä toimii muuttuvat pelitilanteet, jotka syötetään 2D matriisin muodossa. 
