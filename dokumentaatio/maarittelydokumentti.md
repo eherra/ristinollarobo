@@ -11,5 +11,5 @@ Tulen tekemään projektin Javalla sekä dokumenataatiokielenä toimii suomen ki
 <h2>Opinto-ohjelma</h2>
 Tietojenkäsittelytieteen kandidaatti (TKT)
 <h2>Lähteet</h2>
-https://www.javatpoint.com/mini-max-algorithm-in-ai
+https://www.javatpoint.com/mini-max-algorithm-in-ai </br>
 https://www.javatpoint.com/ai-alpha-beta-pruning
