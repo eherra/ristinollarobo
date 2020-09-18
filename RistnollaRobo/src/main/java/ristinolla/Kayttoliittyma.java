@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 /**
  * RistinollaRobon käyttöliittymä JavaFX:llä.
- * Laudan koko aluksi 10x10 ja voittorivi 5 merkin pituinen. Mahdollisesti teen myöhemmin mahdollisuuden laudan koon valintaan.
- * Minimax-algoritmia ei vielä impletoitu. 
+ * Laudan koko vaihdettu aluksi 3x3 ja voittorivi 3 merkin pituinen. Sovellan lautaa ja minimax algoritmia että 10x10 laudan peluu on mahdollista.
+ * Minimax-algoritmi implentoitu, AlphaBeta-karsintaa ei vielä lisätty. Tekoäly voittaa kaikki pelit.
  */
 
 public class Kayttoliittyma extends Application {
@@ -23,10 +23,11 @@ public class Kayttoliittyma extends Application {
     public void start(Stage ikkuna) throws Exception {
         Pelisysteemi systeemi = new Pelisysteemi();
         Tarkastaja tark = new Tarkastaja(systeemi);
+        systeemi.setTarkastaja(tark);
         BorderPane asettelu = new BorderPane();
       
         Label labeli = new Label("Vuoro: " + systeemi.getVuoro());
-        labeli.setFont(Font.font("Monospaced", 40));
+        labeli.setFont(Font.font("Monospaced", 20));
         
         GridPane pane = lisaaNapit(systeemi, labeli, tark);
         asettelu.setTop(labeli);        
@@ -43,29 +44,42 @@ public class Kayttoliittyma extends Application {
     public GridPane lisaaNapit(Pelisysteemi systeemi, Label label, Tarkastaja tark) {        
         GridPane palautus = new GridPane();
         
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
                 Button nappula = new Button(" ");
                 nappula.setFont(Font.font("Monospaced", 20));
                 
                 //nappulan painallukset
                 nappula.setOnAction((event) -> {
-                    if (!nappula.getText().equals(" ") || label.getText().startsWith("Loppu!")) return;
+                    if (!nappula.getText().equals(" ") || label.getText().startsWith("L")) return;
                     
                     nappula.setText(systeemi.getVuoro());
-                    
                     systeemi.setArvoTaulukkoon(GridPane.getRowIndex(nappula), GridPane.getColumnIndex(nappula), systeemi.getVuoro());
                     
-                    if (tark.tarkastaPeli()) {
-                        label.setText("Loppu! " + systeemi.getVuoro() + " voitti!");
+                    if (systeemi.vuorojaJaljellaKayttoliittymaan()) {
+                        label.setText("Loppu! Tasapeli.");
                         return;
                     } 
                     
                     systeemi.vuoroEteenpäin();
-                    label.setText("Vuoro: " + systeemi.getVuoro()); 
+                    int[] liike = systeemi.getParasLiike();
+                    systeemi.setArvoTaulukkoon(liike[0], liike[1], "O");
+                    Button AI = new Button("O");
+                    AI.setFont(Font.font("Monospaced", 20));
+                    palautus.add(AI, liike[1], liike[0]); // laitetaan tekoälyn pelaama siirto pelialustalle
+                    systeemi.vuoroEteenpäin();
+                    
+                    if (tark.laskePistearvo() == -10) {
+                        label.setText("Loppu! Tekoäly voittaa!");
+                        return;
+                    } else if (tark.laskePistearvo() == 10) {
+                        label.setText("Loppu! Ihminen voittaa!"); // tämä ei tapahdu koskaan, sillä tekoäly voittamaton
+                        return;
+                    }
+                    label.setText("Vuoro: " + systeemi.getVuoro());
                 });
                 // nappula GridPaneen
-                palautus.add(nappula, i, j);
+                palautus.add(nappula, j, i);
             }
         }
 

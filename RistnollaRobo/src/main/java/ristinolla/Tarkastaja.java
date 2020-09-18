@@ -3,6 +3,8 @@ package ristinolla;
 
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
+ * Luokkaan hieman muutoksia, jotta Minimax-algoritmi saatiin yhteen sopivaksi. 
+ * Luokassa vielä Javan valmis tietorakenne StringBuilder sekä String-olion metodi contains. Nämä korvataan ensi viikolla.
  * 
  * @param Pelisysteemi-luokka, josta saamme pelilaudan tiedot haettua tarkastusta varten
  */
@@ -11,16 +13,44 @@ public class Tarkastaja {
     private StringBuilder build;
     private Pelisysteemi sys;
     private int taulukonPituus;
+    private boolean ristiFlag, nollaFlag;
     
     public Tarkastaja(Pelisysteemi systeemi) {
+        ristiFlag = false;
+        nollaFlag = false;
         build = new StringBuilder();
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
     }
     
-    public boolean tarkastaPeli() {     
-        return (tarkastaVaaka() || tarkastaPysty() || tarkastaDiagonal());
-    }
+    public int laskePistearvo() {     
+        if (tarkastaVaaka() || tarkastaPysty()) {
+            if (ristiFlag) {
+                ristiFlag = false;
+                return 10; // johtaa 'X' pelaajan voittoon
+            } else if (nollaFlag) {
+                nollaFlag = false;
+                return -10; // johtaa 'O' pelaajan voittoon
+            }
+        }
+        
+        if (sys.getTaulukonPituus() == 3) {
+            if (tarkastaDiagonalPieniTaulukko()) {
+                if (ristiFlag) {
+                     ristiFlag = false;
+                     return 10;
+                 } else if (nollaFlag) {
+                     nollaFlag = false;
+                     return -10;
+                 }            
+            }
+        } else {
+            // isompi pelitaulu
+        }
+        
+        return 0;
+    }     
+
     
     public boolean tarkastaVaaka() {
         for (int x = 0; x < taulukonPituus; x++) {
@@ -45,6 +75,30 @@ public class Tarkastaja {
         return false;
     }    
     
+    public boolean tarkastaDiagonalPieniTaulukko() {
+        if (sys.getArvoTaulukosta(0, 0).equals(sys.getArvoTaulukosta(1, 1)) && sys.getArvoTaulukosta(1, 1).equals(sys.getArvoTaulukosta(2, 2))) { 
+            if (sys.getArvoTaulukosta(0, 0).equals("X")) {
+                ristiFlag = true;
+                return true;
+            } 
+            if (sys.getArvoTaulukosta(0, 0).equals("O")){
+                nollaFlag = true;
+                return true;
+            } 
+        } 
+        
+        if (sys.getArvoTaulukosta(0, 2).equals(sys.getArvoTaulukosta(1, 1)) && sys.getArvoTaulukosta(1, 1).equals(sys.getArvoTaulukosta(2, 0))) {
+            if (sys.getArvoTaulukosta(0, 2).equals("X")) {
+                ristiFlag = true;
+                return true;
+            } 
+            if (sys.getArvoTaulukosta(0, 2).equals("O")){
+                nollaFlag = true;
+                return true;
+            }        
+        }
+        return false;
+    }    
     public boolean tarkastaDiagonal() {     
         return (vasenYlhaaltaDiagnolOikeaYlaosa() || vasenYlhaaltaDiagonalAlasOikeaAlaosa() || oikeaYlhaaltaDiagnolVasenAlasYlaosa() || oikeaYlhaaltaDiagonalVasenAlasAlaosa());
         // jaettu neljään eri metodiin. Alla oleva kuva kertoo metodien testialueet
@@ -168,7 +222,15 @@ public class Tarkastaja {
         return false;
     }
     
-    public boolean sisaltaakoVoittoRivin(String rivi) { 
-        return (rivi.contains("XXXXX") || rivi.contains("OOOOO")); 
+    public boolean sisaltaakoVoittoRivin(String rivi) {
+        if (rivi.contains("XXX")) {
+            ristiFlag = true;
+            return true;
+        }
+        if (rivi.contains("OOO")) {
+            nollaFlag = true;
+            return true;
+        }
+        return false;
     }
 }
