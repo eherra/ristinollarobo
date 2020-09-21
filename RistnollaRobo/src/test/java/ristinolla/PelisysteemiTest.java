@@ -32,7 +32,7 @@ public class PelisysteemiTest {
 
     @Test
     public void testSetArvoTaulukkoon() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(10);
         
         sys.setArvoTaulukkoon(0, 0, "X");
         sys.setArvoTaulukkoon(9, 9, "X");

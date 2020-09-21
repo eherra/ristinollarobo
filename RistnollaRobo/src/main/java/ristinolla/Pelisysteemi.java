@@ -17,7 +17,11 @@ public class Pelisysteemi {
     private Tarkastaja tark;
     
     public Pelisysteemi() {
-        this.taulukko = new String[3][3];  
+        this(3);
+    }
+    
+    public Pelisysteemi(int koko) { // jos valitaan isompi alusta
+        this.taulukko = new String[koko][koko];  
         alustaTaulu();
         
         liike = new int[2];
@@ -129,8 +133,8 @@ public class Pelisysteemi {
         return vuorotAlgoon == taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
    }
     
-    public boolean vuorojaJaljellaKayttoliittymaan() {
-        return vuoro == 8;
+    public boolean vuorojaJaljella() {
+        return vuoro != taulukko.length * taulukko.length;
     }
     
     public void tulostaTaulu() {

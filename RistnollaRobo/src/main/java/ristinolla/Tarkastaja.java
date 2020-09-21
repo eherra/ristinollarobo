@@ -14,6 +14,7 @@ public class Tarkastaja {
     private Pelisysteemi sys;
     private int taulukonPituus;
     private boolean ristiFlag, nollaFlag;
+    private String voittoriviX, voittoriviO;
     
     public Tarkastaja(Pelisysteemi systeemi) {
         ristiFlag = false;
@@ -21,6 +22,25 @@ public class Tarkastaja {
         build = new StringBuilder();
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
+        asetaVoittorivit(taulukonPituus);
+    }
+    
+    public void asetaVoittorivit(int koko) {
+        if (koko == 3) {
+            voittoriviX = "XXX";
+            voittoriviO = "OOO"; 
+        } else {
+            voittoriviX = "XXXXX";
+            voittoriviO = "OOOOO"; 
+        }
+    }
+    
+    public String getVoittoriviX() {
+        return voittoriviX;
+    }
+    
+    public String getVoittoriviO() {
+       return voittoriviO;
     }
     
     public int laskePistearvo() {     
@@ -34,7 +54,7 @@ public class Tarkastaja {
             }
         }
         
-        if (sys.getTaulukonPituus() == 3) {
+        if (taulukonPituus == 3) {
             if (tarkastaDiagonalPieniTaulukko()) {
                 if (ristiFlag) {
                      ristiFlag = false;
@@ -99,7 +119,7 @@ public class Tarkastaja {
         }
         return false;
     }    
-    public boolean tarkastaDiagonal() {     
+    public boolean tarkastaDiagonalIsompiLauta() {     
         return (vasenYlhaaltaDiagnolOikeaYlaosa() || vasenYlhaaltaDiagonalAlasOikeaAlaosa() || oikeaYlhaaltaDiagnolVasenAlasYlaosa() || oikeaYlhaaltaDiagonalVasenAlasAlaosa());
         // jaettu neljään eri metodiin. Alla oleva kuva kertoo metodien testialueet
         //1111111111
@@ -223,11 +243,11 @@ public class Tarkastaja {
     }
     
     public boolean sisaltaakoVoittoRivin(String rivi) {
-        if (rivi.contains("XXX")) {
+        if (rivi.contains(voittoriviX)) {
             ristiFlag = true;
             return true;
         }
-        if (rivi.contains("OOO")) {
+        if (rivi.contains(voittoriviO)) {
             nollaFlag = true;
             return true;
         }

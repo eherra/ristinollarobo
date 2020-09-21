@@ -55,19 +55,14 @@ public class Kayttoliittyma extends Application {
                     
                     nappula.setText(systeemi.getVuoro());
                     systeemi.setArvoTaulukkoon(GridPane.getRowIndex(nappula), GridPane.getColumnIndex(nappula), systeemi.getVuoro());
-                    
-                    if (systeemi.vuorojaJaljellaKayttoliittymaan()) {
-                        label.setText("Loppu! Tasapeli.");
-                        return;
-                    } 
-                    
+
                     systeemi.vuoroEteenpäin();
-                    int[] liike = systeemi.getParasLiike();
+                    
+                    int[] liike = systeemi.getParasLiike(); // tekoälyn liike
                     systeemi.setArvoTaulukkoon(liike[0], liike[1], "O");
                     Button AI = new Button("O");
                     AI.setFont(Font.font("Monospaced", 20));
-                    palautus.add(AI, liike[1], liike[0]); // laitetaan tekoälyn pelaama siirto pelialustalle
-                    systeemi.vuoroEteenpäin();
+                    palautus.add(AI, liike[1], liike[0]); // laitetaan tekoälyn pelaama siirto käyttöliittymän pelialustalle
                     
                     if (tark.laskePistearvo() == -10) {
                         label.setText("Loppu! Tekoäly voittaa!");
@@ -75,7 +70,11 @@ public class Kayttoliittyma extends Application {
                     } else if (tark.laskePistearvo() == 10) {
                         label.setText("Loppu! Ihminen voittaa!"); // tämä ei tapahdu koskaan, sillä tekoäly voittamaton
                         return;
+                    } else if (!systeemi.vuorojaJaljella()) {
+                        label.setText("Loppu! Tasapeli!"); 
+                        return;
                     }
+                    systeemi.vuoroEteenpäin();
                     label.setText("Vuoro: " + systeemi.getVuoro());
                 });
                 // nappula GridPaneen
