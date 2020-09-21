@@ -3,8 +3,7 @@ package ristinolla;
 
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
- * Luokkaan hieman muutoksia, jotta Minimax-algoritmi saatiin yhteen sopivaksi. 
- * Luokasta poistettu Javan valmiit tietorakenteet StringBuilder sekä contains
+ * Luokasta poistettu Javan valmiit tietorakenteet ja metodit
  * 
  * @param Pelisysteemi-luokka, josta saamme pelilaudan tiedot haettua tarkastusta varten
  */
@@ -20,25 +19,6 @@ public class Tarkastaja {
         nollaFlag = false;
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
-        asetaVoittorivit(taulukonPituus);
-    }
-    
-    public void asetaVoittorivit(int koko) {
-        if (koko == 3) {
-            voittoriviX = "XXX";
-            voittoriviO = "OOO"; 
-        } else {
-            voittoriviX = "XXXXX";
-            voittoriviO = "OOOOO"; 
-        }
-    }
-    
-    public String getVoittoriviX() {
-        return voittoriviX;
-    }
-    
-    public String getVoittoriviO() {
-       return voittoriviO;
     }
     
     public int laskePistearvo() {     
@@ -247,10 +227,12 @@ public class Tarkastaja {
     
     public boolean sisaltaakoVoittoRivin(String rivi) {
         char merkki = rivi.charAt(0);
-        int maara = 1;
+        int maara = 1; // perakkaisten merkkien maara
         for (int i = 1; i < rivi.length(); i++) {
+            if (rivi.charAt(i) == '-' && merkki == '-') continue;  
+            
             if (merkki != rivi.charAt(i)) {
-                if (maara == 3 || maara == 5) break;
+                if (maara == 5) break; // löydettiin 5 suora samaa merkkiä
                 merkki = rivi.charAt(i);
                 maara = 1;
             } else {
@@ -263,15 +245,14 @@ public class Tarkastaja {
                 if (merkki == 'X') ristiFlag = true;
                 if (merkki == 'O') nollaFlag = true;
                 return true;
-                }
-            } else { // isompi taulu
-                if (maara == 5) {
-                    if (merkki == 'X') ristiFlag = true;
-                    if (merkki == 'O') nollaFlag = true;
-                    return true;
-                }
             }
-
+        } else { // isompi taulu
+            if (maara == 5) {
+                if (merkki == 'X') ristiFlag = true;
+                if (merkki == 'O') nollaFlag = true;
+                return true;
+            }
+        }
         return false;
     }
 }

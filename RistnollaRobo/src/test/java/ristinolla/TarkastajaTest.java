@@ -410,30 +410,6 @@ public class TarkastajaTest {
         assertNotEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa()); 
     }
 
-    /**
-     * Test of asetaVoittorivit method, of class Tarkastaja.
-     */
-    @Test
-    public void testAsetaVoittorivitIsotaulu() {
-        Pelisysteemi sys = new Pelisysteemi(10);
-        Tarkastaja tark = new Tarkastaja(sys); 
-        
-        assertEquals("XXXXX", tark.getVoittoriviX());
-        assertEquals("OOOOO", tark.getVoittoriviO());
-    }
-    
-    @Test
-    public void testAsetaVoittorivitPieniTaulu() {
-        Pelisysteemi sys = new Pelisysteemi();
-        Tarkastaja tark = new Tarkastaja(sys); 
-
-        assertEquals("XXX", tark.getVoittoriviX());
-        assertEquals("OOO", tark.getVoittoriviO());
-    }
-
-    /**
-     * Test of laskePistearvo method, of class Tarkastaja.
-     */
     @Test
     public void testLaskePistearvo() {
         Pelisysteemi sys = new Pelisysteemi();
