@@ -47,8 +47,8 @@ public class Kayttoliittyma extends Application {
     public GridPane lisaaNapit(Pelisysteemi systeemi, Label label, Tarkastaja tark) {        
         GridPane palautus = new GridPane();
         
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < systeemi.getTaulukonPituus(); i++) {
+            for (int j = 0; j < systeemi.getTaulukonPituus(); j++) {
                 Button nappula = new Button(" ");
                 nappula.setFont(Font.font("Monospaced", 20));
                 
@@ -58,8 +58,24 @@ public class Kayttoliittyma extends Application {
                     
                     nappula.setText(systeemi.getVuoro());
                     systeemi.setArvoTaulukkoon(GridPane.getRowIndex(nappula), GridPane.getColumnIndex(nappula), systeemi.getVuoro());
-
+                    if (tark.laskePistearvo() == 10) { // tarkistetaan voittiko ihmisen siirto
+                        label.setText("Loppu! Ihminen voittaa!"); 
+                        return;
+                    }
                     systeemi.vuoroEteenpäin();
+                    
+                    if (!systeemi.vuorojaJaljella()) { // jos vika ruutu pelattiin
+                        if (tark.laskePistearvo() == -10) {
+                            label.setText("Loppu! Tekoäly voittaa!");
+                            return;
+                        } else if (tark.laskePistearvo() == 10) {
+                            label.setText("Loppu! Ihminen voittaa!"); // tämä ei tapahdu koskaan, sillä tekoäly voittamaton
+                            return;
+                        } else {
+                            label.setText("Loppu! Tasapeli!"); 
+                            return;
+                        }           
+                    }
                     
                     int[] liike = systeemi.getParasLiike(); // tekoälyn liike
                     systeemi.setArvoTaulukkoon(liike[0], liike[1], "O");
@@ -70,13 +86,8 @@ public class Kayttoliittyma extends Application {
                     if (tark.laskePistearvo() == -10) {
                         label.setText("Loppu! Tekoäly voittaa!");
                         return;
-                    } else if (tark.laskePistearvo() == 10) {
-                        label.setText("Loppu! Ihminen voittaa!"); // tämä ei tapahdu koskaan, sillä tekoäly voittamaton
-                        return;
-                    } else if (!systeemi.vuorojaJaljella()) {
-                        label.setText("Loppu! Tasapeli!"); 
-                        return;
-                    }
+                    } 
+                    
                     systeemi.vuoroEteenpäin();
                     label.setText("Vuoro: " + systeemi.getVuoro());
                 });

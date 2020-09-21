@@ -4,8 +4,8 @@ package ristinolla;
 import java.util.Arrays;
 import ristinolla.Tarkastaja;
 /**
- * Pelisysteemi-luokka joka tällä hetkellä hieman vaiheessa. Minimax-metodi erotellaan myöhemmin omaan luokkaansa.
- * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. JUnit testit eivät toimi tässä luokassa, kun tein paljon muutoksia luokkaan.
+ * Pelisysteemi-luokka joka tällä hetkellä hieman vaiheessa.
+ * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. 
  * Muokkaan testit sopiviksi ensi viikon aikana.
  */
 

@@ -4,22 +4,20 @@ package ristinolla;
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
  * Luokkaan hieman muutoksia, jotta Minimax-algoritmi saatiin yhteen sopivaksi. 
- * Luokassa vielä Javan valmis tietorakenne StringBuilder sekä String-olion metodi contains. Nämä korvataan ensi viikolla.
+ * Luokasta poistettu Javan valmiit tietorakenteet StringBuilder sekä contains
  * 
  * @param Pelisysteemi-luokka, josta saamme pelilaudan tiedot haettua tarkastusta varten
  */
 
 public class Tarkastaja {
-    private StringBuilder build;
     private Pelisysteemi sys;
     private int taulukonPituus;
     private boolean ristiFlag, nollaFlag;
-    private String voittoriviX, voittoriviO;
+    private String voittoriviX, voittoriviO, tarkistettavaRivi;
     
     public Tarkastaja(Pelisysteemi systeemi) {
         ristiFlag = false;
         nollaFlag = false;
-        build = new StringBuilder();
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
         asetaVoittorivit(taulukonPituus);
@@ -65,32 +63,37 @@ public class Tarkastaja {
                  }            
             }
         } else {
-            // isompi pelitaulu
+            if (tarkastaDiagonalIsompiLauta()) {
+                if (ristiFlag) {
+                     ristiFlag = false;
+                     return 10;
+                 } else if (nollaFlag) {
+                     nollaFlag = false;
+                     return -10;
+                 } 
+            }
         }
-        
         return 0;
-    }     
-
-    
+    }
+   
     public boolean tarkastaVaaka() {
         for (int x = 0; x < taulukonPituus; x++) {
-            build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int y = 0; y < taulukonPituus; y++) {
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
             }
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
         }
        return false;
     }
     
     public boolean tarkastaPysty() {
         for (int y = 0; y < taulukonPituus; y++) {
-            build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int x = 0; x < taulukonPituus; x++) { 
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
             }
-            
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
         }
         return false;
     }    
@@ -173,12 +176,12 @@ public class Tarkastaja {
       
         while (asti != 4) { // kulmaa ei tarkasteta, viiden suora ei mahdu muodostumaan
             int y = yy;
-            build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int x = 0; x < asti; x++) {
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
                 y++;
             }
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
             asti--;
             yy++;
         }
@@ -192,13 +195,13 @@ public class Tarkastaja {
         
         while (asti != 4) {
             int x = xx;
-             build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int y = 0; y < asti; y++) {
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
                 x++;
             }
             
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
             asti--;
             xx++;
         }   
@@ -212,12 +215,12 @@ public class Tarkastaja {
         
         while (asti != 4) { 
             int y = yy;
-             build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int x = 0; x < asti; x++) {
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
                 y--;
             }
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
             asti--;
             yy--;
         }  
@@ -230,12 +233,12 @@ public class Tarkastaja {
         
         while (asti != 5) {
             int x = xx;
-             build = new StringBuilder();
+            tarkistettavaRivi = "";
             for (int y = 9; y > asti; y--) { 
-                build.append(sys.getArvoTaulukosta(x, y));
+                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
                 x++;
             }
-            if (sisaltaakoVoittoRivin(build.toString())) return true;
+            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
             asti++;
             xx++;
         } 
@@ -243,14 +246,34 @@ public class Tarkastaja {
     }
     
     public boolean sisaltaakoVoittoRivin(String rivi) {
-        if (rivi.contains(voittoriviX)) {
-            ristiFlag = true;
-            return true;
+        char merkki = rivi.charAt(0);
+        int maara = 1;
+        for (int i = 1; i < rivi.length(); i++) {
+            if (merkki != rivi.charAt(i)) {
+                if (maara == 3 || maara == 5) break;
+                merkki = rivi.charAt(i);
+                maara = 1;
+            } else {
+                maara++;
+            }
         }
-        if (rivi.contains(voittoriviO)) {
-            nollaFlag = true;
-            return true;
-        }
+        
+        if (sys.getTaulukonPituus() == 3) {
+            if (maara == 3) {
+                if (merkki == 'X') ristiFlag = true;
+                if (merkki == 'O') nollaFlag = true;
+                return true;
+                }
+            } else { // isompi taulu
+                if (maara == 5) {
+                    if (merkki == 'X') ristiFlag = true;
+                    if (merkki == 'O') nollaFlag = true;
+                    return true;
+                }
+            }
+
         return false;
     }
 }
+
+    
