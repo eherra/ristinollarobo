@@ -24,6 +24,9 @@ public class Kayttoliittyma extends Application {
         Pelisysteemi systeemi = new Pelisysteemi();
         Tarkastaja tark = new Tarkastaja(systeemi);
         systeemi.setTarkastaja(tark);
+        Minimax minMax = new Minimax(tark, systeemi);
+        systeemi.setMinimax(minMax);
+        
         BorderPane asettelu = new BorderPane();
       
         Label labeli = new Label("Vuoro: " + systeemi.getVuoro());

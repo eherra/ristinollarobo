@@ -15,6 +15,7 @@ public class Pelisysteemi {
     private String[][] taulukko;
     private int[] liike;
     private Tarkastaja tark;
+    private Minimax minimax;
     
     public Pelisysteemi() {
         this(3);
@@ -43,6 +44,11 @@ public class Pelisysteemi {
         this.tark = tark;
     }
     
+    public void setMinimax(Minimax minmax) {
+        this.minimax = minmax;
+    }
+           
+    
     public String getVuoro() {
         return vuoro % 2 == 0 ? pelaaja : AI;
     }
@@ -64,47 +70,6 @@ public class Pelisysteemi {
         return taulukko.length;
     }
     
-    public int minimax(int syvyys, Boolean onkoMaxVuorossa) {
-        int pisteet = tark.laskePistearvo(); 
-        if (pisteet == 10 || pisteet == -10) return pisteet;
-        if (vuorojaJaljellaAlgoon()) return 0;
-
-        if (onkoMaxVuorossa) { 
-            int parasPiste = Integer.MIN_VALUE; 
-
-            for (int i = 0; i < taulukko.length; i++) { 
-                for (int j = 0; j < taulukko.length; j++) { 
-                    if (taulukko[i][j].equals("-")) { 
-                        taulukko[i][j] = pelaaja; 
-                        vuorotAlgoon++; // tällä saadaan laskettua tyhjien paikkojen määrä pelitaulussa
-                        int lasku = minimax(syvyys + 1, !onkoMaxVuorossa);
-                        parasPiste = parasPiste > lasku ? parasPiste : lasku; 
-                        taulukko[i][j] = "-"; // backtracking, palautetetaan ruutu tyhjaksi
-                        vuorotAlgoon--; // backtracking, vähennetään ruutujen käyttöastetta
-                    } 
-                } 
-            } 
-            return parasPiste; 
-        } 
-        else { 
-            int parasPiste = Integer.MAX_VALUE; 
-
-            for (int i = 0; i < taulukko.length; i++) { 
-                for (int j = 0; j < taulukko.length; j++) { 
-                    if (taulukko[i][j].equals("-")) { 
-                        taulukko[i][j] = AI; 
-                        vuorotAlgoon++;
-                        int lasku = minimax(syvyys + 1, !onkoMaxVuorossa);
-                        parasPiste = parasPiste < lasku ? parasPiste : lasku;
-                        taulukko[i][j] = "-"; 
-                        vuorotAlgoon--;
-                    } 
-                } 
-            } 
-        return parasPiste; 
-        } 
-    }
-      
     public int[] getParasLiike() {
         int parasArvo = Integer.MAX_VALUE; 
         liike = new int[2];
@@ -114,7 +79,7 @@ public class Pelisysteemi {
                 if (taulukko[i][j].equals("-")) { 
                     taulukko[i][j] = AI; 
                     vuorotAlgoon++;
-                    int liikkeenArvo = minimax(0, true); 
+                    int liikkeenArvo = minimax.suoritaMinimax(taulukko, 0, true); 
                     taulukko[i][j] = "-"; 
                     vuorotAlgoon--;
 
@@ -128,6 +93,19 @@ public class Pelisysteemi {
         } 
         return liike; 
     } 
+    
+    public int getVuorotAlgoon() {
+        return vuorotAlgoon;
+    }
+    
+    public void vuorotAlgoonMiinus() {
+        vuorotAlgoon--;
+    }
+    
+    public void vuorotAlgoonPlus() {
+        vuorotAlgoon++;
+    }
+            
     
     public boolean vuorojaJaljellaAlgoon() {
         return vuorotAlgoon == taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
