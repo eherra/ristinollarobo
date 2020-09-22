@@ -12,13 +12,14 @@ public class Tarkastaja {
     private Pelisysteemi sys;
     private int taulukonPituus;
     private boolean ristiFlag, nollaFlag;
-    private String voittoriviX, voittoriviO, tarkistettavaRivi;
+    private String tarkistettavaRivi;
     
     public Tarkastaja(Pelisysteemi systeemi) {
         ristiFlag = false;
         nollaFlag = false;
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
+        
     }
     
     public int laskePistearvo() {     
@@ -227,27 +228,30 @@ public class Tarkastaja {
     
     public boolean sisaltaakoVoittoRivin(String rivi) {
         char merkki = rivi.charAt(0);
-        int maara = 1; // perakkaisten merkkien maara
+        int maaraPerakkain = 1; 
         for (int i = 1; i < rivi.length(); i++) {
             if (rivi.charAt(i) == '-' && merkki == '-') continue;  
             
             if (merkki != rivi.charAt(i)) {
-                if (maara == 5) break; // löydettiin 5 suora samaa merkkiä
+                if (maaraPerakkain == 5) break; // löydettiin 5 suora samaa merkkiä
                 merkki = rivi.charAt(i);
-                maara = 1;
+                maaraPerakkain = 1;
             } else {
-                maara++;
+                maaraPerakkain++;
             }
         }
-        
+        return onkoVoittoa(maaraPerakkain, merkki);
+    }
+    
+    public boolean onkoVoittoa(int maaraPerakkain, char merkki) {
         if (sys.getTaulukonPituus() == 3) {
-            if (maara == 3) {
+            if (maaraPerakkain == 3) {
                 if (merkki == 'X') ristiFlag = true;
                 if (merkki == 'O') nollaFlag = true;
                 return true;
             }
         } else { // isompi taulu
-            if (maara == 5) {
+            if (maaraPerakkain == 5) {
                 if (merkki == 'X') ristiFlag = true;
                 if (merkki == 'O') nollaFlag = true;
                 return true;
