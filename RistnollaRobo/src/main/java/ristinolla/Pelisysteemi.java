@@ -11,8 +11,8 @@ import ristinolla.Tarkastaja;
 
 public class Pelisysteemi {
     private int vuoro, vuorotAlgoon;
-    private String pelaaja, AI;
-    private String[][] taulukko;
+    private int pelaaja, AI;
+    private int[][] taulukko;
     private int[] liike;
     private Tarkastaja tark;
     private Minimax minimax;
@@ -22,24 +22,15 @@ public class Pelisysteemi {
     }
     
     public Pelisysteemi(int koko) { // jos valitaan isompi alusta
-        this.taulukko = new String[koko][koko];  
-        alustaTaulu();
+        this.taulukko = new int[koko][koko];  
         
         liike = new int[2];
         vuoro = 0;
         vuorotAlgoon = 0;
-        pelaaja = "X";
-        AI = "O";
+        pelaaja = 1;
+        AI = 10;
     }
-    
-    public void alustaTaulu() {
-        for (int i = 0; i < taulukko.length; i++) {
-            for (int j = 0; j < taulukko.length; j++) {
-                taulukko[i][j] = "-";
-            }
-        }
-    }
-    
+   
     public void setTarkastaja(Tarkastaja tark) {
         this.tark = tark;
     }
@@ -50,7 +41,11 @@ public class Pelisysteemi {
            
     
     public String getVuoro() {
-        return vuoro % 2 == 0 ? pelaaja : AI;
+        return vuoro % 2 == 0 ? "X" : "O";
+    }
+    
+    public int getVuoroArvona() {
+        return vuoro % 2 == 0 ? 1 : 10;
     }
     
     public void vuoroEteenpäin() {
@@ -58,11 +53,11 @@ public class Pelisysteemi {
         vuorotAlgoon++;
     }
     
-    public void setArvoTaulukkoon(int x, int y, String arvo) {
+    public void setArvoTaulukkoon(int x, int y, int arvo) {
         taulukko[x][y] = arvo;
     }
     
-    public String getArvoTaulukosta(int x, int y) {
+    public int getArvoTaulukosta(int x, int y) {
         return taulukko[x][y];
     }
     
@@ -76,11 +71,11 @@ public class Pelisysteemi {
 
         for (int i = 0; i < taulukko.length; i++) { 
             for (int j = 0; j < taulukko.length; j++) { 
-                if (taulukko[i][j].equals("-")) { 
+                if (taulukko[i][j] == 0) { 
                     taulukko[i][j] = AI; 
                     vuorotAlgoon++;
                     int liikkeenArvo = minimax.suoritaMinimax(taulukko, 0, true); 
-                    taulukko[i][j] = "-"; 
+                    taulukko[i][j] = 0; 
                     vuorotAlgoon--;
 
                     if (liikkeenArvo < parasArvo) { 

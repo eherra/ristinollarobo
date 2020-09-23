@@ -34,15 +34,15 @@ public class PelisysteemiTest {
     public void testSetArvoTaulukkoon() {
         Pelisysteemi sys = new Pelisysteemi(10);
         
-        sys.setArvoTaulukkoon(0, 0, "X");
-        sys.setArvoTaulukkoon(9, 9, "X");
-        sys.setArvoTaulukkoon(0, 9, "O");
+        sys.setArvoTaulukkoon(0, 0, 1);
+        sys.setArvoTaulukkoon(9, 9, 1);
+        sys.setArvoTaulukkoon(0, 9, 10);
         
-        assertEquals("X", sys.getArvoTaulukosta(0, 0));
-        assertEquals("X", sys.getArvoTaulukosta(9, 9));
-        assertEquals("O", sys.getArvoTaulukosta(0, 9));
-        assertNotEquals("O", sys.getArvoTaulukosta(0, 0));
-        assertNotEquals("X", sys.getArvoTaulukosta(5, 5));
+        assertEquals(1, sys.getArvoTaulukosta(0, 0));
+        assertEquals(1, sys.getArvoTaulukosta(9, 9));
+        assertEquals(10, sys.getArvoTaulukosta(0, 9));
+        assertNotEquals(10, sys.getArvoTaulukosta(0, 0));
+        assertNotEquals(1, sys.getArvoTaulukosta(5, 5));
     }
 }
 

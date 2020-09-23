@@ -13,7 +13,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);        
         
         for (int i = 4; i < 9; i++) {
-            sys.setArvoTaulukkoon(0, i, "X");
+            sys.setArvoTaulukkoon(0, i, 1);
         }
         assertEquals(true, tark.tarkastaVaaka());
     }
@@ -24,7 +24,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);        
         
         for (int i = 5; i < 10; i++) {
-            sys.setArvoTaulukkoon(1, i, "X");
+            sys.setArvoTaulukkoon(1, i, 1);
         }
         assertEquals(true, tark.tarkastaVaaka());
     }
@@ -35,7 +35,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);       
         
         for (int i = 2; i < 7; i++) {
-            sys.setArvoTaulukkoon(9, i, "O");
+            sys.setArvoTaulukkoon(9, i, 10);
         }
         assertEquals(true, tark.tarkastaVaaka());
     }    
@@ -46,7 +46,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);        
         
         for (int i = 0; i < 5; i++) {
-            sys.setArvoTaulukkoon(0, i, "O");
+            sys.setArvoTaulukkoon(0, i, 10);
         }
         assertEquals(true, tark.tarkastaVaaka());
     }    
@@ -57,7 +57,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);         
         
         for (int i = 5; i < 9; i++) {
-            sys.setArvoTaulukkoon(1, i, "X");
+            sys.setArvoTaulukkoon(1, i, 1);
         }
         assertNotEquals(true, tark.tarkastaVaaka());
     }
@@ -67,7 +67,7 @@ public class TarkastajaTest {
         Pelisysteemi sys = new Pelisysteemi(10);
         Tarkastaja tark = new Tarkastaja(sys);         
         for (int i = 2; i < 5; i++) {
-            sys.setArvoTaulukkoon(1, i, "X");
+            sys.setArvoTaulukkoon(1, i, 1);
         }
         assertNotEquals(true, tark.tarkastaVaaka());
     }
@@ -80,7 +80,7 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);         
         
         for (int i = 4; i < 9; i++) {
-            sys.setArvoTaulukkoon(i, 0, "X");
+            sys.setArvoTaulukkoon(i, 0, 1);
         }
         assertEquals(true, tark.tarkastaPysty());
     }
@@ -90,10 +90,10 @@ public class TarkastajaTest {
         Tarkastaja tark = new Tarkastaja(sys);         
         
         for (int i = 4; i < 9; i++) {
-            sys.setArvoTaulukkoon(i, 5, "O");
+            sys.setArvoTaulukkoon(i, 5, 10);
         }
-        sys.setArvoTaulukkoon(0, 5, "O");
-        sys.setArvoTaulukkoon(1, 5, "O");
+        sys.setArvoTaulukkoon(0, 5, 10);
+        sys.setArvoTaulukkoon(1, 5, 10);
         assertEquals(true, tark.tarkastaPysty());
     }
     
@@ -102,10 +102,10 @@ public class TarkastajaTest {
         Pelisysteemi sys = new Pelisysteemi(10);
         Tarkastaja tark = new Tarkastaja(sys);         
         for (int i = 4; i < 6; i++) {
-            sys.setArvoTaulukkoon(i, 5, "O");
+            sys.setArvoTaulukkoon(i, 5, 10);
         }
-        sys.setArvoTaulukkoon(0, 5, "O");
-        sys.setArvoTaulukkoon(1, 5, "O");
+        sys.setArvoTaulukkoon(0, 5, 10);
+        sys.setArvoTaulukkoon(1, 5, 10);
         assertNotEquals(true, tark.tarkastaPysty());
     }
     

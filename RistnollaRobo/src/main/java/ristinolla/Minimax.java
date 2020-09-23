@@ -14,7 +14,7 @@ public class Minimax {
         this.sys = sys;
     }
     
-    public int suoritaMinimax(String[][] taulukko, int syvyys, Boolean onkoMaxVuorossa) {
+    public int suoritaMinimax(int[][] taulukko, int syvyys, Boolean onkoMaxVuorossa) {
         int pisteet = tark.laskePistearvo(); 
         if (pisteet == 10 || pisteet == -10) return pisteet;
         if (sys.vuorojaJaljellaAlgoon()) return 0;
@@ -24,12 +24,12 @@ public class Minimax {
 
             for (int i = 0; i < taulukko.length; i++) { 
                 for (int j = 0; j < taulukko.length; j++) { 
-                    if (taulukko[i][j].equals("-")) { 
-                        taulukko[i][j] = "X"; 
+                    if (taulukko[i][j] == 0) { 
+                        taulukko[i][j] = 1; 
                         sys.vuorotAlgoonPlus(); // tällä saadaan laskettua tyhjien paikkojen määrä pelitaulussa
                         int lasku = suoritaMinimax(taulukko, syvyys + 1, !onkoMaxVuorossa);
                         parasPiste = parasPiste > lasku ? parasPiste : lasku; 
-                        taulukko[i][j] = "-"; // backtracking, palautetetaan ruutu tyhjaksi
+                        taulukko[i][j] = 0; // backtracking, palautetetaan ruutu tyhjaksi
                         sys.vuorotAlgoonMiinus(); // backtracking, vähennetään ruutujen käyttöastetta
                     } 
                 } 
@@ -41,12 +41,12 @@ public class Minimax {
 
             for (int i = 0; i < taulukko.length; i++) { 
                 for (int j = 0; j < taulukko.length; j++) { 
-                    if (taulukko[i][j].equals("-")) { 
-                        taulukko[i][j] = "O"; 
+                    if (taulukko[i][j] == 0) { 
+                        taulukko[i][j] = 10; 
                         sys.vuorotAlgoonPlus();
                         int lasku = suoritaMinimax(taulukko, syvyys + 1, !onkoMaxVuorossa);
                         parasPiste = parasPiste < lasku ? parasPiste : lasku;
-                        taulukko[i][j] = "-"; 
+                        taulukko[i][j] = 0; 
                         sys.vuorotAlgoonMiinus();
                     } 
                 } 

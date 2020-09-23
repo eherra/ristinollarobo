@@ -12,7 +12,7 @@ public class Tarkastaja {
     private Pelisysteemi sys;
     private int taulukonPituus;
     private boolean ristiFlag, nollaFlag;
-    private String tarkistettavaRivi;
+    private int tarkistettavaRivi;
     
     public Tarkastaja(Pelisysteemi systeemi) {
         ristiFlag = false;
@@ -59,9 +59,9 @@ public class Tarkastaja {
    
     public boolean tarkastaVaaka() {
         for (int x = 0; x < taulukonPituus; x++) {
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int y = 0; y < taulukonPituus; y++) {
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
             }
             if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
         }
@@ -70,9 +70,9 @@ public class Tarkastaja {
     
     public boolean tarkastaPysty() {
         for (int y = 0; y < taulukonPituus; y++) {
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int x = 0; x < taulukonPituus; x++) { 
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
             }
             if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
         }
@@ -80,23 +80,23 @@ public class Tarkastaja {
     }    
     
     public boolean tarkastaDiagonalPieniTaulukko() {
-        if (sys.getArvoTaulukosta(0, 0).equals(sys.getArvoTaulukosta(1, 1)) && sys.getArvoTaulukosta(1, 1).equals(sys.getArvoTaulukosta(2, 2))) { 
-            if (sys.getArvoTaulukosta(0, 0).equals("X")) {
+        if (sys.getArvoTaulukosta(0, 0) == sys.getArvoTaulukosta(1, 1) && sys.getArvoTaulukosta(1, 1) == sys.getArvoTaulukosta(2, 2)) { 
+            if (sys.getArvoTaulukosta(0, 0) == 1) {
                 ristiFlag = true;
                 return true;
             } 
-            if (sys.getArvoTaulukosta(0, 0).equals("O")){
+            if (sys.getArvoTaulukosta(0, 0) == 10){
                 nollaFlag = true;
                 return true;
             } 
         } 
         
-        if (sys.getArvoTaulukosta(0, 2).equals(sys.getArvoTaulukosta(1, 1)) && sys.getArvoTaulukosta(1, 1).equals(sys.getArvoTaulukosta(2, 0))) {
-            if (sys.getArvoTaulukosta(0, 2).equals("X")) {
+        if (sys.getArvoTaulukosta(0, 2) == sys.getArvoTaulukosta(1, 1) && sys.getArvoTaulukosta(1, 1) == sys.getArvoTaulukosta(2, 0)) {
+            if (sys.getArvoTaulukosta(0, 2) == 1) {
                 ristiFlag = true;
                 return true;
             } 
-            if (sys.getArvoTaulukosta(0, 2).equals("O")){
+            if (sys.getArvoTaulukosta(0, 2) == 10){
                 nollaFlag = true;
                 return true;
             }        
@@ -157,9 +157,9 @@ public class Tarkastaja {
       
         while (asti != 4) { // kulmaa ei tarkasteta, viiden suora ei mahdu muodostumaan
             int y = yy;
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int x = 0; x < asti; x++) {
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
                 y++;
             }
             if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
@@ -176,9 +176,9 @@ public class Tarkastaja {
         
         while (asti != 4) {
             int x = xx;
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int y = 0; y < asti; y++) {
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
                 x++;
             }
             
@@ -196,9 +196,9 @@ public class Tarkastaja {
         
         while (asti != 4) { 
             int y = yy;
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int x = 0; x < asti; x++) {
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
                 y--;
             }
             if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
@@ -214,9 +214,9 @@ public class Tarkastaja {
         
         while (asti != 5) {
             int x = xx;
-            tarkistettavaRivi = "";
+            tarkistettavaRivi = 0;
             for (int y = 9; y > asti; y--) { 
-                tarkistettavaRivi = tarkistettavaRivi + sys.getArvoTaulukosta(x, y);
+                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
                 x++;
             }
             if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
@@ -226,39 +226,23 @@ public class Tarkastaja {
         return false;
     }
     
-    public boolean sisaltaakoVoittoRivin(String rivi) {
-        char merkki = rivi.charAt(0);
-        int maaraPerakkain = 1; 
-        for (int i = 1; i < rivi.length(); i++) {
-            if (rivi.charAt(i) == '-' && merkki == '-') continue;  
-            
-            if (merkki != rivi.charAt(i)) {
-                if (maaraPerakkain == 5) break; // löydettiin 5 suora samaa merkkiä
-                merkki = rivi.charAt(i);
-                maaraPerakkain = 1;
-            } else {
-                maaraPerakkain++;
-            }
-        }
-        return onkoVoittoa(maaraPerakkain, merkki);
-    }
-    
-    public boolean onkoVoittoa(int maaraPerakkain, char merkki) {
+    public boolean sisaltaakoVoittoRivin(int rivi) {
         if (sys.getTaulukonPituus() == 3) {
-            if (maaraPerakkain == 3) {
-                if (merkki == 'X') ristiFlag = true;
-                if (merkki == 'O') nollaFlag = true;
+            if (rivi == 3 || rivi == 30) {
+                if (rivi == 3) ristiFlag = true;
+                if (rivi == 30) nollaFlag = true;
                 return true;
             }
         } else { // isompi taulu
-            if (maaraPerakkain == 5) {
-                if (merkki == 'X') ristiFlag = true;
-                if (merkki == 'O') nollaFlag = true;
+            if (rivi == 5 && rivi == 50) {
+                if (rivi == 5) ristiFlag = true;
+                if (rivi == 50) nollaFlag = true;
                 return true;
             }
         }
         return false;
     }
+
 }
 
     
