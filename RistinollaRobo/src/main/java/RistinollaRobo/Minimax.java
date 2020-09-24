@@ -14,10 +14,10 @@ public class Minimax {
         this.sys = sys;
     }
     
-    public int suoritaMinimax(int[][] taulukko, int syvyys, Boolean onkoMaxVuorossa) {
+    public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa) {
         int pisteet = tark.laskePistearvo(); 
         if (pisteet == 10 || pisteet == -10) return pisteet;
-        if (sys.vuorojaJaljellaAlgoon()) return 0;
+        if (!sys.onkoRuutujaJaljella()) return 0;
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 
@@ -26,11 +26,13 @@ public class Minimax {
                 for (int j = 0; j < taulukko.length; j++) { 
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 1; 
-                        sys.vuorotAlgoonPlus(); // tällä saadaan laskettua tyhjien paikkojen määrä pelitaulussa
-                        int lasku = suoritaMinimax(taulukko, syvyys + 1, !onkoMaxVuorossa);
-                        parasPiste = parasPiste > lasku ? parasPiste : lasku; 
+                        sys.pelattujaRuutujaPlus(); // pidetään kirjaa että montako ruutua pelattu
+                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
                         taulukko[i][j] = 0; // backtracking, palautetetaan ruutu tyhjaksi
-                        sys.vuorotAlgoonMiinus(); // backtracking, vähennetään ruutujen käyttöastetta
+                        sys.pelattujaRuutujaMiinus(); // backtracking, palautetaan ruutujen käyttöastetta                        
+                        parasPiste = parasPiste > lasku ? parasPiste : lasku; 
+                        alpha = alpha > parasPiste ? alpha : parasPiste;
+                        if (beta <= alpha) break;
                     } 
                 } 
             } 
@@ -43,11 +45,13 @@ public class Minimax {
                 for (int j = 0; j < taulukko.length; j++) { 
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 10; 
-                        sys.vuorotAlgoonPlus();
-                        int lasku = suoritaMinimax(taulukko, syvyys + 1, !onkoMaxVuorossa);
+                        sys.pelattujaRuutujaPlus();
+                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
+                        sys.pelattujaRuutujaMiinus();
+                        taulukko[i][j] = 0;                         
                         parasPiste = parasPiste < lasku ? parasPiste : lasku;
-                        taulukko[i][j] = 0; 
-                        sys.vuorotAlgoonMiinus();
+                        beta = beta < lasku ? beta : lasku;
+                        if (beta <= alpha) break;                        
                     } 
                 } 
             } 

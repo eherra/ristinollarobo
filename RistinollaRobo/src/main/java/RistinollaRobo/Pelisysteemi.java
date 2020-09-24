@@ -10,7 +10,7 @@ import RistinollaRobo.Tarkastaja;
  */
 
 public class Pelisysteemi {
-    private int vuoro, vuorotAlgoon;
+    private int vuoro, ruutujaPelattuMaara;
     private int pelaaja, AI;
     private int[][] taulukko;
     private int[] liike;
@@ -26,7 +26,7 @@ public class Pelisysteemi {
         
         liike = new int[2];
         vuoro = 0;
-        vuorotAlgoon = 0;
+        ruutujaPelattuMaara = 0;
         pelaaja = 1;
         AI = 10;
     }
@@ -50,7 +50,7 @@ public class Pelisysteemi {
     
     public void vuoroEteenpäin() {
         vuoro++;
-        vuorotAlgoon++;
+        ruutujaPelattuMaara++;
     }
     
     public void setArvoTaulukkoon(int x, int y, int arvo) {
@@ -73,10 +73,10 @@ public class Pelisysteemi {
             for (int j = 0; j < taulukko.length; j++) { 
                 if (taulukko[i][j] == 0) { 
                     taulukko[i][j] = AI; 
-                    vuorotAlgoon++;
-                    int liikkeenArvo = minimax.suoritaMinimax(taulukko, 0, true); 
+                    ruutujaPelattuMaara++;
+                    int liikkeenArvo = minimax.suoritaMinimax(taulukko, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true); 
                     taulukko[i][j] = 0; 
-                    vuorotAlgoon--;
+                    ruutujaPelattuMaara--;
 
                     if (liikkeenArvo < parasArvo) { 
                         liike[0] = i;
@@ -90,20 +90,20 @@ public class Pelisysteemi {
     } 
     
     public int getVuorotAlgoon() {
-        return vuorotAlgoon;
+        return ruutujaPelattuMaara;
     }
     
-    public void vuorotAlgoonMiinus() {
-        vuorotAlgoon--;
+    public void pelattujaRuutujaMiinus() {
+        ruutujaPelattuMaara--;
     }
     
-    public void vuorotAlgoonPlus() {
-        vuorotAlgoon++;
+    public void pelattujaRuutujaPlus() {
+        ruutujaPelattuMaara++;
     }
             
     
-    public boolean vuorojaJaljellaAlgoon() {
-        return vuorotAlgoon == taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
+    public boolean onkoRuutujaJaljella() {
+        return ruutujaPelattuMaara != taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
    }
     
     public boolean vuorojaJaljella() {

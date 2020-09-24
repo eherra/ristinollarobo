@@ -9,8 +9,13 @@ repositories {
     jcenter()
 }
 
+test { 
+    useJUnitPlatform() 
+}
+
 dependencies {
     testCompile 'junit:junit:4.12'
+
 }
 
 jacocoTestReport {
