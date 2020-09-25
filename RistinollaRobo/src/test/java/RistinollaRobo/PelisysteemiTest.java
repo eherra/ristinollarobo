@@ -1,18 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RistinollaRobo;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
  * @author balooza
  */
 public class PelisysteemiTest {
-
 
     @Test
     public void testGetVuoro() {
@@ -51,6 +47,29 @@ public class PelisysteemiTest {
         assertNotEquals(10, sys.getArvoTaulukosta(0, 0));
         assertNotEquals(1, sys.getArvoTaulukosta(5, 5));
     }
+
+    @Test
+    public void testGetVuoroArvona() {
+        Pelisysteemi s = new Pelisysteemi();
+        assertEquals(1, s.getVuoroArvona());
+        s.vuoroEteenpäin();
+        assertEquals(10, s.getVuoroArvona());
+
+    }
+
+    @Test
+    public void testGetArvoTaulukosta() {
+        Pelisysteemi sys = new Pelisysteemi();
+        sys.setArvoTaulukkoon(0, 0, 10);
+        assertEquals(10, sys.getArvoTaulukosta(0, 0));
+    }
+
+    @Test
+    public void testGetTaulukonPituus() {
+        Pelisysteemi sys = new Pelisysteemi();
+        assertEquals(3, sys.getTaulukonPituus());
+    }
+
 }
 
 

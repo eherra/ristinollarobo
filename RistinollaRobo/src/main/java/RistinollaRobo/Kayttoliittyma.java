@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 
 /**
  * RistinollaRobon käyttöliittymä JavaFX:llä.
- * Laudan koko vaihdettu aluksi 3x3 ja voittorivi 3 merkin pituinen. Sovellan lautaa ja minimax algoritmia että 10x10 laudan peluu on mahdollista.
- * Minimax-algoritmi implentoitu, AlphaBeta-karsintaa ei vielä lisätty. Tekoäly voittaa kaikki pelit.
+ * Laudan koko vaihdettu aluksi 3x3 ja voittorivi 3 merkin pituinen. Sovellan lautaa ja minimax-algoritmia että 10x10 laudan peluu on mahdollista.
+ * Tällä hetkellä isommalla laudalla algoritmilla kestää liian kauan seuraavan optimaalisimman siirron löytöön.
+ * Tekoäly voittaa kaikki pelit.
  */
 
 public class Kayttoliittyma extends Application {
@@ -32,7 +33,7 @@ public class Kayttoliittyma extends Application {
         Label labeli = new Label("Vuoro: " + systeemi.getVuoro());
         labeli.setFont(Font.font("Monospaced", 20));
         
-        GridPane pane = lisaaNapit(systeemi, labeli, tark);
+        GridPane pane = lisaaNapit(systeemi, labeli, tark, minMax);
         asettelu.setTop(labeli);        
         asettelu.setPrefSize(300, 180);    
         asettelu.setPadding(new Insets(10, 10, 10, 10));
@@ -44,7 +45,7 @@ public class Kayttoliittyma extends Application {
         ikkuna.show();
     }
     
-    public GridPane lisaaNapit(Pelisysteemi systeemi, Label label, Tarkastaja tark) {        
+    public GridPane lisaaNapit(Pelisysteemi systeemi, Label label, Tarkastaja tark, Minimax minimax) {        
         GridPane palautus = new GridPane();
         
         for (int i = 0; i < systeemi.getTaulukonPituus(); i++) {
@@ -77,7 +78,7 @@ public class Kayttoliittyma extends Application {
                         }           
                     }
                     
-                    int[] liike = systeemi.getParasLiike(); // tekoälyn liike
+                    int[] liike = minimax.getParasLiike(); // tekoälyn liike
                     systeemi.setArvoTaulukkoon(liike[0], liike[1], 10);
                     Button AI = new Button("O");
                     AI.setFont(Font.font("Monospaced", 20));

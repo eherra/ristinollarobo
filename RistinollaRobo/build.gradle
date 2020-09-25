@@ -5,16 +5,23 @@ apply plugin: 'checkstyle'
 
 mainClassName = 'RistinollaRobo.Main'
 
+checkstyle {
+    toolVersion '8.17';    
+}
+
 repositories {
     jcenter()
 }
 
-test { 
-    useJUnitPlatform() 
-}
 
 dependencies {
     testCompile 'junit:junit:4.12'
+}
+
+test {
+    useJUnit()
+
+    maxHeapSize = '1G'
 }
 
 jacocoTestReport {

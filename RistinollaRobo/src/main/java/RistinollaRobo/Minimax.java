@@ -1,14 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package RistinollaRobo;
 
+/**
+ *
+ * @author balooza
+ */
 public class Minimax {
     private Tarkastaja tark;
     private Pelisysteemi sys;
+    private int[] liike;
     
+    /**
+     *
+     * @param tark - pelin tarkastaukseen oleva luokka
+     * @param sys - pelinkulkuun oleva luokka
+     */
     public Minimax(Tarkastaja tark, Pelisysteemi sys) {
         this.tark = tark;
         this.sys = sys;
@@ -58,4 +64,28 @@ public class Minimax {
         return parasPiste; 
         } 
     }
+    
+    public int[] getParasLiike() {
+        int parasArvo = Integer.MAX_VALUE; 
+        liike = new int[2];
+
+        for (int i = 0; i < sys.getTaulukonPituus(); i++) { 
+            for (int j = 0; j < sys.getTaulukonPituus(); j++) { 
+                if (sys.getArvoTaulukosta(i, j) == 0) { 
+                    sys.setArvoTaulukkoon(i, j, 10);
+                    sys.pelattujaRuutujaPlus();
+                    int liikkeenArvo = suoritaMinimax(sys.getTaulukko(), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true); 
+                    sys.setArvoTaulukkoon(i, j, 0);
+                    sys.pelattujaRuutujaMiinus();
+
+                    if (liikkeenArvo < parasArvo) { 
+                        liike[0] = i;
+                        liike[1] = j;
+                        parasArvo = liikkeenArvo; 
+                    } 
+                } 
+            } 
+        } 
+        return liike; 
+    } 
 }

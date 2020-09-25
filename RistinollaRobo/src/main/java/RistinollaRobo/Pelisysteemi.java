@@ -6,29 +6,23 @@ import RistinollaRobo.Tarkastaja;
 /**
  * Pelisysteemi-luokka joka tällä hetkellä hieman vaiheessa.
  * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. 
- * Muokkaan testit sopiviksi ensi viikon aikana.
+ * 
  */
 
 public class Pelisysteemi {
     private int vuoro, ruutujaPelattuMaara;
-    private int pelaaja, AI;
     private int[][] taulukko;
-    private int[] liike;
     private Tarkastaja tark;
     private Minimax minimax;
-    
+   
     public Pelisysteemi() {
         this(3);
     }
-    
+   
     public Pelisysteemi(int koko) { // jos valitaan isompi alusta
         this.taulukko = new int[koko][koko];  
-        
-        liike = new int[2];
         vuoro = 0;
         ruutujaPelattuMaara = 0;
-        pelaaja = 1;
-        AI = 10;
     }
    
     public void setTarkastaja(Tarkastaja tark) {
@@ -39,7 +33,6 @@ public class Pelisysteemi {
         this.minimax = minmax;
     }
            
-    
     public String getVuoro() {
         return vuoro % 2 == 0 ? "X" : "O";
     }
@@ -61,36 +54,12 @@ public class Pelisysteemi {
         return taulukko[x][y];
     }
     
-    public int getTaulukonPituus() {
-        return taulukko.length;
+    public int[][] getTaulukko() {
+        return taulukko;
     }
     
-    public int[] getParasLiike() {
-        int parasArvo = Integer.MAX_VALUE; 
-        liike = new int[2];
-
-        for (int i = 0; i < taulukko.length; i++) { 
-            for (int j = 0; j < taulukko.length; j++) { 
-                if (taulukko[i][j] == 0) { 
-                    taulukko[i][j] = AI; 
-                    ruutujaPelattuMaara++;
-                    int liikkeenArvo = minimax.suoritaMinimax(taulukko, 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true); 
-                    taulukko[i][j] = 0; 
-                    ruutujaPelattuMaara--;
-
-                    if (liikkeenArvo < parasArvo) { 
-                        liike[0] = i;
-                        liike[1] = j;
-                        parasArvo = liikkeenArvo; 
-                    } 
-                } 
-            } 
-        } 
-        return liike; 
-    } 
-    
-    public int getVuorotAlgoon() {
-        return ruutujaPelattuMaara;
+    public int getTaulukonPituus() {
+        return taulukko.length;
     }
     
     public void pelattujaRuutujaMiinus() {
@@ -101,7 +70,6 @@ public class Pelisysteemi {
         ruutujaPelattuMaara++;
     }
             
-    
     public boolean onkoRuutujaJaljella() {
         return ruutujaPelattuMaara != taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
    }
