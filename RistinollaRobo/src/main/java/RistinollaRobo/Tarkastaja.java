@@ -19,7 +19,6 @@ public class Tarkastaja {
         nollaFlag = false;
         sys = systeemi;
         taulukonPituus = sys.getTaulukonPituus();
-        
     }
     
     public int laskePistearvo() {     
@@ -103,6 +102,12 @@ public class Tarkastaja {
         }
         return false;
     }    
+    
+    /**
+     *
+     * Tähän tulee vielä muutosia. Muutoksien jälkeen koko lautaa ei tarkasteta, vaan vain kohdasta johon viimeisin merkki on lisätty. 
+     * Näin saadaan algoritmia tehostettua eikä turhaa laskentatehoa kulu kohtiin, joita ei tarvitse tarkastaa.
+     */
     public boolean tarkastaDiagonalIsompiLauta() {     
         return (vasenYlhaaltaDiagnolOikeaYlaosa() || vasenYlhaaltaDiagonalAlasOikeaAlaosa() || oikeaYlhaaltaDiagnolVasenAlasYlaosa() || oikeaYlhaaltaDiagonalVasenAlasAlaosa());
         // jaettu neljään eri metodiin. Alla oleva kuva kertoo metodien testialueet

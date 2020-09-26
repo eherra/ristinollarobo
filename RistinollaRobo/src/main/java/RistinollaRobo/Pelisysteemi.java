@@ -4,7 +4,7 @@ package RistinollaRobo;
 import java.util.Arrays;
 import RistinollaRobo.Tarkastaja;
 /**
- * Pelisysteemi-luokka joka tällä hetkellä hieman vaiheessa.
+ * Pelisysteemi-luokka.
  * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. 
  * 
  */
@@ -19,6 +19,10 @@ public class Pelisysteemi {
         this(3);
     }
    
+    /**
+     *
+     * @param koko laudan koko riippuen pelaajan valinnasta
+     */
     public Pelisysteemi(int koko) { // jos valitaan isompi alusta
         this.taulukko = new int[koko][koko];  
         vuoro = 0;

@@ -66,11 +66,12 @@ public class Kayttoliittyma extends Application {
                     systeemi.vuoroEteenpäin();
                     
                     if (!systeemi.vuorojaJaljella()) { // jos vika ruutu pelattiin
-                        if (tark.laskePistearvo() == -10) {
+                        int pisteet = tark.laskePistearvo();
+                        if (pisteet == -10) {
                             label.setText("Loppu! Tekoäly voittaa!");
                             return;
-                        } else if (tark.laskePistearvo() == 10) {
-                            label.setText("Loppu! Ihminen voittaa!"); // tämä ei tapahdu koskaan, sillä tekoäly voittamaton
+                        } else if (pisteet == 10) {
+                            label.setText("Loppu! Ihminen voittaa!"); // jos laudan koko 3x3, tämä ei tapahdu koskaan sillä tekoäly voittamaton
                             return;
                         } else {
                             label.setText("Loppu! Tasapeli!"); 
