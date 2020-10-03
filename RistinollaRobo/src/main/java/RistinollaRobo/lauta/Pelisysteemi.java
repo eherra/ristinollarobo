@@ -1,12 +1,14 @@
-package RistinollaRobo;
+package RistinollaRobo.lauta;
 
 
+import RistinollaRobo.utils.Minimax;
 import java.util.Arrays;
-import RistinollaRobo.Tarkastaja;
+import RistinollaRobo.utils.Tarkastaja;
+import RistinollaRobo.utils.Tarkastaja;
 /**
  * Pelisysteemi-luokka.
+ * Luokka pitää kirjaa pelitilanteista ja luokasta saadaan tiedot vuorosta sekä pelattujen vuorojen määrästä
  * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. 
- * 
  */
 
 public class Pelisysteemi {
@@ -47,7 +49,7 @@ public class Pelisysteemi {
     
     public void vuoroEteenpäin() {
         vuoro++;
-        ruutujaPelattuMaara++;
+        minimax.pelattujaRuutujaPlus(); // pidetään ylhäällä pelattujen ruutujen määrää minimax-algoritmin avuksi
     }
     
     public void setArvoTaulukkoon(int x, int y, int arvo) {
@@ -65,19 +67,7 @@ public class Pelisysteemi {
     public int getTaulukonPituus() {
         return taulukko.length;
     }
-    
-    public void pelattujaRuutujaMiinus() {
-        ruutujaPelattuMaara--;
-    }
-    
-    public void pelattujaRuutujaPlus() {
-        ruutujaPelattuMaara++;
-    }
-            
-    public boolean onkoRuutujaJaljella() {
-        return ruutujaPelattuMaara != taulukko.length * taulukko.length; // onko tyhjiä paikkoja jäljellä
-   }
-    
+   
     public boolean vuorojaJaljella() {
         return vuoro != taulukko.length * taulukko.length;
     }

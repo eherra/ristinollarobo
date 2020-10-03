@@ -1,5 +1,7 @@
 
-package RistinollaRobo;
+package RistinollaRobo.utils;
+
+import RistinollaRobo.lauta.Pelisysteemi;
 
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 

@@ -1,5 +1,7 @@
 
-package RistinollaRobo;
+package RistinollaRobo.utils;
+
+import RistinollaRobo.lauta.Pelisysteemi;
 
 /**
  *
@@ -9,6 +11,7 @@ public class Minimax {
     private Tarkastaja tark;
     private Pelisysteemi sys;
     private int[] liike;
+    private int ruutujaPelattuMaara;
     
     /**
      *
@@ -18,12 +21,13 @@ public class Minimax {
     public Minimax(Tarkastaja tark, Pelisysteemi sys) {
         this.tark = tark;
         this.sys = sys;
+        ruutujaPelattuMaara = 0;
     }
     
     public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa) {
         int pisteet = tark.laskePistearvo(); 
         if (pisteet == 10 || pisteet == -10) return pisteet;
-        if (!sys.onkoRuutujaJaljella()) return 0;
+        if (!onkoRuutujaJaljella()) return 0;
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 
@@ -32,10 +36,10 @@ public class Minimax {
                 for (int j = 0; j < taulukko.length; j++) { 
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 1; 
-                        sys.pelattujaRuutujaPlus(); // pidetään kirjaa että montako ruutua pelattu
+                        ruutujaPelattuMaara++; // pidetään kirjaa että montako ruutua pelattu
                         int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
                         taulukko[i][j] = 0; // backtracking, palautetetaan ruutu tyhjaksi
-                        sys.pelattujaRuutujaMiinus(); // backtracking, palautetaan ruutujen käyttöastetta                        
+                        ruutujaPelattuMaara--; // backtracking, palautetaan ruutujen käyttöastetta                        
                         parasPiste = parasPiste > lasku ? parasPiste : lasku; 
                         alpha = alpha > parasPiste ? alpha : parasPiste;
                         if (beta <= alpha) break;
@@ -51,9 +55,9 @@ public class Minimax {
                 for (int j = 0; j < taulukko.length; j++) { 
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 10; 
-                        sys.pelattujaRuutujaPlus();
+                        ruutujaPelattuMaara++;
                         int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
-                        sys.pelattujaRuutujaMiinus();
+                        ruutujaPelattuMaara--;
                         taulukko[i][j] = 0;                         
                         parasPiste = parasPiste < lasku ? parasPiste : lasku;
                         beta = beta < lasku ? beta : lasku;
@@ -73,10 +77,10 @@ public class Minimax {
             for (int j = 0; j < sys.getTaulukonPituus(); j++) { 
                 if (sys.getArvoTaulukosta(i, j) == 0) { 
                     sys.setArvoTaulukkoon(i, j, 10);
-                    sys.pelattujaRuutujaPlus();
+                    ruutujaPelattuMaara++;
                     int liikkeenArvo = suoritaMinimax(sys.getTaulukko(), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true); 
                     sys.setArvoTaulukkoon(i, j, 0);
-                    sys.pelattujaRuutujaMiinus();
+                    ruutujaPelattuMaara--;
 
                     if (liikkeenArvo < parasArvo) { 
                         liike[0] = i;
@@ -88,4 +92,12 @@ public class Minimax {
         } 
         return liike; 
     } 
+    
+    public void pelattujaRuutujaPlus() {
+        ruutujaPelattuMaara++;
+    }
+    
+    public boolean onkoRuutujaJaljella() {
+        return ruutujaPelattuMaara != sys.getTaulukonPituus() * sys.getTaulukonPituus(); // onko tyhjiä paikkoja jäljellä
+    }
 }

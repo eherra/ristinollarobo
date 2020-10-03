@@ -1,6 +1,9 @@
 
-package RistinollaRobo;
+package RistinollaRobo.ui;
 
+import RistinollaRobo.utils.Minimax;
+import RistinollaRobo.lauta.Pelisysteemi;
+import RistinollaRobo.utils.Tarkastaja;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
