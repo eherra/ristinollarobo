@@ -58,19 +58,39 @@ public class Tarkastaja {
         }
         return 0;
     }
-   
-    public boolean tarkastaVaaka(int viimesinX, int viimesinY) {
-        if (viimesinY < 5) {
-            if (taulukonPituus == 3) {
-                if (tarkastaPieniTauluVaaka(viimesinX)) return true;
-            } else {
-                int[] luvut = new int[taulukonPituus - (5 - viimesinY)];
-                for (int i = 0; i < luvut.length; i++) {
-                    luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
-                }
-                if (ikkunaLiuku(luvut)) return true;
+    
+    // 3x3 pienen taulun tarkastukset
+    public boolean tarkastaPieniTauluVaaka(int x) {
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));
+    }
+
+    public boolean tarkastaPieniTauluPysty(int y) {
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));
+    }  
+
+    public boolean tarkastaDiagonalPieniTaulukko() {
+        if (sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));
+    } 
+    
+    /**
+     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkatus tehokas, mutta koodin
+     * luettavuus kärsi hieman, jotta turhia kohtia ei tarkasteta riviltä eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
+     * @param viimesinX 
+     * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
+     */
+    public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
+        if (taulukonPituus == 3) {
+            if (tarkastaPieniTauluVaaka(viimesinX)) return true;
+        }
+        
+        if (viimesinY < 5) { // jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
+            int[] luvut = new int[taulukonPituus - (5 - viimesinY)]; 
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
             }
-        } else if (viimesinY > 5) {
+            if (ikkunaLiuku(luvut)) return true;
+        } else if (taulukonPituus - viimesinY < 5) { // jos ollaan oikeassa laidassa
             int[] luvut = new int[taulukonPituus - (viimesinY - 4)];
             int alku = viimesinY - 4;
             
@@ -89,7 +109,7 @@ public class Tarkastaja {
        return false;
     }
     
-    public boolean tarkastaPysty(int viimesinX, int viimesinY) {
+    public boolean tarkastaPysty(int viimesinX, int viimesinY) { 
         if (viimesinX < 5) {
             if (taulukonPituus == 3) {
                 if (tarkastaPieniTauluPysty(viimesinY)) return true;
@@ -119,30 +139,18 @@ public class Tarkastaja {
         return false;
     }  
     
-    public boolean tarkastaPieniTauluVaaka(int x) {
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));
-    }
-    
-    public boolean tarkastaPieniTauluPysty(int y) {
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));
-    }  
-    
-    public boolean tarkastaDiagonalPieniTaulukko() {
-        if (sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));
-    }    
-    
     public boolean tarkastaDiagonal(int x, int y) {
        return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));
     }
     
-    public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) {
-        if (viimesinX > 5 || viimesinY < 4) return false;
+    // tarkastetaan tällä hetkellä koko diagonal rivi kohdasta viimesinX, viimesinY
+    public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
+        if (viimesinX > 5 || viimesinY < 4) return false; // ei voi syntyä 5 suoraa
         int[] luvut = new int[10];
         int xx = viimesinX;
         int yy = viimesinY;
         
-        while (true) { // pumpataan rivin alkuun
+        while (true) { // mennään diagonal rivin alkuun
             if (xx == 0 || yy == 9) break;
             xx--;
             yy++;
@@ -180,6 +188,8 @@ public class Tarkastaja {
         return (ikkunaLiuku(luvut));
     }
     
+    
+    
     public boolean sisaltaakoVoittoRivin(int rivi) {
         if (sys.getTaulukonPituus() == 3) {
             if (rivi == 3 || rivi == 30) {
@@ -198,11 +208,9 @@ public class Tarkastaja {
     }
     
     public boolean ikkunaLiuku(int[] luvut) {
-        int rivinPituus = 5; 
-        
-        for (int i = 0; i < luvut.length - rivinPituus + 1; i++) {
+        for (int i = 0; i < luvut.length - 5 + 1; i++) {
             int summa = 0; 
-            for (int j = 0; j < rivinPituus; j++) {
+            for (int j = 0; j < 5; j++) { // tätä saa vielä nopeammaksi, sillä riviä ei tarvitse loopata joka kerta vaan miinusta viimesin luku ja plussata seuraava luku
                 summa += luvut[i + j];
             }
             if (sisaltaakoVoittoRivin(summa)) return true;
