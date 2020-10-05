@@ -2,6 +2,7 @@
 package RistinollaRobo.utils;
 
 import RistinollaRobo.lauta.Pelisysteemi;
+import java.util.Arrays;
 
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
@@ -23,8 +24,8 @@ public class Tarkastaja {
         taulukonPituus = sys.getTaulukonPituus();
     }
     
-    public int laskePistearvo() {     
-        if (tarkastaVaaka() || tarkastaPysty()) {
+    public int laskePistearvo(int x, int y) {     
+        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y)) {
             if (ristiFlag) {
                 ristiFlag = false;
                 return 10; // johtaa 'X' pelaajan voittoon
@@ -45,7 +46,7 @@ public class Tarkastaja {
                  }            
             }
         } else {
-            if (tarkastaDiagonalIsompiLauta()) {
+            if (tarkastaDiagonal(x, y)) {
                 if (ristiFlag) {
                      ristiFlag = false;
                      return 10;
@@ -58,179 +59,125 @@ public class Tarkastaja {
         return 0;
     }
    
-    public boolean tarkastaVaaka() {
-        for (int x = 0; x < taulukonPituus; x++) {
-            tarkistettavaRivi = 0;
-            for (int y = 0; y < taulukonPituus; y++) {
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
+    public boolean tarkastaVaaka(int viimesinX, int viimesinY) {
+        if (viimesinY < 5) {
+            if (taulukonPituus == 3) {
+                if (tarkastaPieniTauluVaaka(viimesinX)) return true;
+            } else {
+                int[] luvut = new int[taulukonPituus - (5 - viimesinY)];
+                for (int i = 0; i < luvut.length; i++) {
+                    luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
+                }
+                if (ikkunaLiuku(luvut)) return true;
             }
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
+        } else if (viimesinY > 5) {
+            int[] luvut = new int[taulukonPituus - (viimesinY - 4)];
+            int alku = viimesinY - 4;
+            
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(viimesinX, alku);
+                alku++;
+            }
+            if (ikkunaLiuku(luvut)) return true;
+        } else {
+            int[] luvut = new int[taulukonPituus];
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
+            }
+            if (ikkunaLiuku(luvut)) return true;
         }
        return false;
     }
     
-    public boolean tarkastaPysty() {
-        for (int y = 0; y < taulukonPituus; y++) {
-            tarkistettavaRivi = 0;
-            for (int x = 0; x < taulukonPituus; x++) { 
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
+    public boolean tarkastaPysty(int viimesinX, int viimesinY) {
+        if (viimesinX < 5) {
+            if (taulukonPituus == 3) {
+                if (tarkastaPieniTauluPysty(viimesinY)) return true;
+            } else {
+                int[] luvut = new int[taulukonPituus - (5 - viimesinX)];
+                for (int i = 0; i < luvut.length; i++) {
+                    luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
+                }
+                if (ikkunaLiuku(luvut)) return true;
             }
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
+        } else if (viimesinX > 5) {
+            int[] luvut = new int[taulukonPituus - (viimesinX - 4)];
+            int alku = viimesinX - 4;
+
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(alku, viimesinY);
+                alku++;
+            }
+            if (ikkunaLiuku(luvut)) return true;
+        } else {
+            int[] luvut = new int[10];
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
+            }
+            if (ikkunaLiuku(luvut)) return true;
         }
         return false;
-    }    
+    }  
+    
+    public boolean tarkastaPieniTauluVaaka(int x) {
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));
+    }
+    
+    public boolean tarkastaPieniTauluPysty(int y) {
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));
+    }  
     
     public boolean tarkastaDiagonalPieniTaulukko() {
-        if (sys.getArvoTaulukosta(0, 0) == sys.getArvoTaulukosta(1, 1) && sys.getArvoTaulukosta(1, 1) == sys.getArvoTaulukosta(2, 2)) { 
-            if (sys.getArvoTaulukosta(0, 0) == 1) {
-                ristiFlag = true;
-                return true;
-            } 
-            if (sys.getArvoTaulukosta(0, 0) == 10){
-                nollaFlag = true;
-                return true;
-            } 
-        } 
-        
-        if (sys.getArvoTaulukosta(0, 2) == sys.getArvoTaulukosta(1, 1) && sys.getArvoTaulukosta(1, 1) == sys.getArvoTaulukosta(2, 0)) {
-            if (sys.getArvoTaulukosta(0, 2) == 1) {
-                ristiFlag = true;
-                return true;
-            } 
-            if (sys.getArvoTaulukosta(0, 2) == 10){
-                nollaFlag = true;
-                return true;
-            }        
-        }
-        return false;
+        if (sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;
+        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));
     }    
     
-    /**
-     *
-     * Tähän tulee vielä muutosia. Muutoksien jälkeen koko lautaa ei tarkasteta, vaan vain kohdasta johon viimeisin merkki on lisätty. 
-     * Näin saadaan algoritmia tehostettua eikä turhaa laskentatehoa kulu kohtiin, joita ei tarvitse tarkastaa.
-     */
-    public boolean tarkastaDiagonalIsompiLauta() {     
-        return (vasenYlhaaltaDiagnolOikeaYlaosa() || vasenYlhaaltaDiagonalAlasOikeaAlaosa() || oikeaYlhaaltaDiagnolVasenAlasYlaosa() || oikeaYlhaaltaDiagonalVasenAlasAlaosa());
-        // jaettu neljään eri metodiin. Alla oleva kuva kertoo metodien testialueet
-        //1111111111
-        // 111111111
-        //  11111111
-        //   1111111
-        //    111111
-        //     11111
-        //      1111
-        //       111
-        //        11
-        //         1
-        
-        //
-        //2
-        //22
-        //222
-        //2222
-        //22222
-        //222222
-        //2222222
-        //22222222
-        //222222222
-        
-        //         3
-        //        33
-        //       333
-        //      3333
-        //     33333
-        //    333333
-        //   3333333
-        //  33333333
-        // 333333333
-        //3333333333  
-        
-        //444444444
-        //44444444
-        //4444444
-        //444444
-        //44444
-        //4444
-        //444
-        //44
-        //4
-        //
+    public boolean tarkastaDiagonal(int x, int y) {
+       return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));
     }
     
-    public boolean vasenYlhaaltaDiagnolOikeaYlaosa() {
-        int asti = taulukonPituus;
-        int yy = 0; 
-      
-        while (asti != 4) { // kulmaa ei tarkasteta, viiden suora ei mahdu muodostumaan
-            int y = yy;
-            tarkistettavaRivi = 0;
-            for (int x = 0; x < asti; x++) {
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
-                y++;
-            }
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
-            asti--;
+    public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) {
+        if (viimesinX > 5 || viimesinY < 4) return false;
+        int[] luvut = new int[10];
+        int xx = viimesinX;
+        int yy = viimesinY;
+        
+        while (true) { // pumpataan rivin alkuun
+            if (xx == 0 || yy == 9) break;
+            xx--;
             yy++;
         }
-        
-        return false;
-    }
-    
-    public boolean vasenYlhaaltaDiagonalAlasOikeaAlaosa() {
-        int asti = taulukonPituus;
-        int xx = 0;
-        
-        while (asti != 4) {
-            int x = xx;
-            tarkistettavaRivi = 0;
-            for (int y = 0; y < asti; y++) {
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
-                x++;
-            }
-            
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
-            asti--;
+        int ind = 0;
+        while (true) { // muodostetaan taulukko johon diagonal kohdan arvot
+            if (xx == 10 || yy == -1) break; // jos taulukon reunassa
+            luvut[ind] = sys.getArvoTaulukosta(xx, yy);
             xx++;
-        }   
-        
-        return false;
-    }
-    
-    public boolean oikeaYlhaaltaDiagnolVasenAlasYlaosa() {
-        int asti = taulukonPituus;
-        int yy = taulukonPituus - 1; 
-        
-        while (asti != 4) { 
-            int y = yy;
-            tarkistettavaRivi = 0;
-            for (int x = 0; x < asti; x++) {
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
-                y--;
-            }
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
-            asti--;
             yy--;
-        }  
-        return false;
+            ind++;
+        }
+        return (ikkunaLiuku(luvut));
     }
     
-    public boolean oikeaYlhaaltaDiagonalVasenAlasAlaosa() {
-        int asti = 0;
-        int xx = 1;
+    public boolean tarkastaOikeaDiagonal(int viimesinX, int viimesinY) {
+        if (viimesinX > 5 || viimesinY > 5) return false;
+        int[] luvut = new int[10];
+        int xx = viimesinX;
+        int yy = viimesinY;
         
-        while (asti != 5) {
-            int x = xx;
-            tarkistettavaRivi = 0;
-            for (int y = 9; y > asti; y--) { 
-                tarkistettavaRivi += sys.getArvoTaulukosta(x, y);
-                x++;
-            }
-            if (sisaltaakoVoittoRivin(tarkistettavaRivi)) return true;
-            asti++;
+        while (true) { // pumpataan alkuun
+            if (xx == 0 || yy == 0) break;
+            xx--;
+            yy--;
+        }
+        int ind = 0;
+        while (true) {
+            if (xx == 10 || yy == 10) break;
+            luvut[ind] = sys.getArvoTaulukosta(xx, yy);
             xx++;
-        } 
-        return false;
+            yy++;
+            ind++;
+        }
+        return (ikkunaLiuku(luvut));
     }
     
     public boolean sisaltaakoVoittoRivin(int rivi) {
@@ -241,7 +188,7 @@ public class Tarkastaja {
                 return true;
             }
         } else { // isompi taulu
-            if (rivi == 5 && rivi == 50) {
+            if (rivi == 5 || rivi == 50) {
                 if (rivi == 5) ristiFlag = true;
                 if (rivi == 50) nollaFlag = true;
                 return true;
@@ -249,7 +196,20 @@ public class Tarkastaja {
         }
         return false;
     }
-
+    
+    public boolean ikkunaLiuku(int[] luvut) {
+        int rivinPituus = 5; 
+        
+        for (int i = 0; i < luvut.length - rivinPituus + 1; i++) {
+            int summa = 0; 
+            for (int j = 0; j < rivinPituus; j++) {
+                summa += luvut[i + j];
+            }
+            if (sisaltaakoVoittoRivin(summa)) return true;
+        }
+        
+        return false;
+    }
 }
 
     

@@ -24,8 +24,8 @@ public class Minimax {
         ruutujaPelattuMaara = 0;
     }
     
-    public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa) {
-        int pisteet = tark.laskePistearvo(); 
+    public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa, int viimesinX, int viimesinY) {
+        int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
         if (pisteet == 10 || pisteet == -10) return pisteet;
         if (!onkoRuutujaJaljella()) return 0;
 
@@ -37,7 +37,7 @@ public class Minimax {
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 1; 
                         ruutujaPelattuMaara++; // pidetään kirjaa että montako ruutua pelattu
-                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
+                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa, i, j);
                         taulukko[i][j] = 0; // backtracking, palautetetaan ruutu tyhjaksi
                         ruutujaPelattuMaara--; // backtracking, palautetaan ruutujen käyttöastetta                        
                         parasPiste = parasPiste > lasku ? parasPiste : lasku; 
@@ -56,7 +56,7 @@ public class Minimax {
                     if (taulukko[i][j] == 0) { 
                         taulukko[i][j] = 10; 
                         ruutujaPelattuMaara++;
-                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa);
+                        int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa, i, j);
                         ruutujaPelattuMaara--;
                         taulukko[i][j] = 0;                         
                         parasPiste = parasPiste < lasku ? parasPiste : lasku;
@@ -78,7 +78,7 @@ public class Minimax {
                 if (sys.getArvoTaulukosta(i, j) == 0) { 
                     sys.setArvoTaulukkoon(i, j, 10);
                     ruutujaPelattuMaara++;
-                    int liikkeenArvo = suoritaMinimax(sys.getTaulukko(), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true); 
+                    int liikkeenArvo = suoritaMinimax(sys.getTaulukko(), 0, Integer.MIN_VALUE, Integer.MAX_VALUE, true, i, j); 
                     sys.setArvoTaulukkoon(i, j, 0);
                     ruutujaPelattuMaara--;
 

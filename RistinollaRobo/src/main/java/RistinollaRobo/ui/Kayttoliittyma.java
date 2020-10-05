@@ -61,15 +61,18 @@ public class Kayttoliittyma extends Application {
                     if (!nappula.getText().equals(" ") || label.getText().startsWith("L")) return;
                     
                     nappula.setText(systeemi.getVuoro());
-                    systeemi.setArvoTaulukkoon(GridPane.getRowIndex(nappula), GridPane.getColumnIndex(nappula), systeemi.getVuoroArvona());
-                    if (tark.laskePistearvo() == 10) { // tarkistetaan voittiko ihmisen siirto
+                    Integer viimesinX = GridPane.getRowIndex(nappula);
+                    Integer viimesinY = GridPane.getColumnIndex(nappula);
+                    systeemi.setArvoTaulukkoon(viimesinX, viimesinY, systeemi.getVuoroArvona());
+                    
+                    if (tark.laskePistearvo(viimesinX, viimesinY) == 10) { // tarkistetaan voittiko ihmisen siirto
                         label.setText("Loppu! Ihminen voittaa!"); 
                         return;
                     }
                     systeemi.vuoroEteenpäin();
                     
                     if (!systeemi.vuorojaJaljella()) { // jos vika ruutu pelattiin
-                        int pisteet = tark.laskePistearvo();
+                        int pisteet = tark.laskePistearvo(viimesinX, viimesinY);
                         if (pisteet == -10) {
                             label.setText("Loppu! Tekoäly voittaa!");
                             return;
@@ -88,7 +91,7 @@ public class Kayttoliittyma extends Application {
                     AI.setFont(Font.font("Monospaced", 20));
                     palautus.add(AI, liike[1], liike[0]); // laitetaan tekoälyn pelaama siirto käyttöliittymän pelialustalle
                     
-                    if (tark.laskePistearvo() == -10) {
+                    if (tark.laskePistearvo(liike[0], liike[1]) == -10) {
                         label.setText("Loppu! Tekoäly voittaa!");
                         return;
                     } 

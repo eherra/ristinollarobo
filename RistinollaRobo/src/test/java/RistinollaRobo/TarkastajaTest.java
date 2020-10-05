@@ -7,8 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;
 
-
-
 public class TarkastajaTest {
     
     @Test
@@ -19,7 +17,7 @@ public class TarkastajaTest {
         for (int i = 4; i < 9; i++) {
             sys.setArvoTaulukkoon(0, i, 1);
         }
-        assertEquals(true, tark.tarkastaVaaka());
+        assertEquals(true, tark.tarkastaVaaka(0, 8));
     }
     
     @Test
@@ -30,7 +28,7 @@ public class TarkastajaTest {
         for (int i = 5; i < 10; i++) {
             sys.setArvoTaulukkoon(1, i, 1);
         }
-        assertEquals(true, tark.tarkastaVaaka());
+        assertEquals(true, tark.tarkastaVaaka(1, 9));
     }
     
     @Test
@@ -41,7 +39,7 @@ public class TarkastajaTest {
         for (int i = 2; i < 7; i++) {
             sys.setArvoTaulukkoon(9, i, 10);
         }
-        assertEquals(true, tark.tarkastaVaaka());
+        assertEquals(true, tark.tarkastaVaaka(9, 5));
     }    
     
     @Test
@@ -52,7 +50,7 @@ public class TarkastajaTest {
         for (int i = 0; i < 5; i++) {
             sys.setArvoTaulukkoon(0, i, 10);
         }
-        assertEquals(true, tark.tarkastaVaaka());
+        assertEquals(true, tark.tarkastaVaaka(0, 3));
     }    
     
     @Test
@@ -63,7 +61,7 @@ public class TarkastajaTest {
         for (int i = 5; i < 9; i++) {
             sys.setArvoTaulukkoon(1, i, 1);
         }
-        assertNotEquals(true, tark.tarkastaVaaka());
+        assertNotEquals(true, tark.tarkastaVaaka(1,8));
     }
     
     @Test
@@ -73,7 +71,7 @@ public class TarkastajaTest {
         for (int i = 2; i < 5; i++) {
             sys.setArvoTaulukkoon(1, i, 1);
         }
-        assertNotEquals(true, tark.tarkastaVaaka());
+        assertNotEquals(true, tark.tarkastaVaaka(1,4));
     }
     
     
@@ -86,7 +84,18 @@ public class TarkastajaTest {
         for (int i = 4; i < 9; i++) {
             sys.setArvoTaulukkoon(i, 0, 1);
         }
-        assertEquals(true, tark.tarkastaPysty());
+
+    }
+    
+    @Test
+    public void testTarkastaPystyVasenReunaKeskiK() {
+        Pelisysteemi sys = new Pelisysteemi(10);
+        Tarkastaja tark = new Tarkastaja(sys);         
+        
+        for (int i = 4; i < 9; i++) {
+            sys.setArvoTaulukkoon(i, 0, 1);
+        }
+        assertEquals(true, tark.tarkastaPysty(5,0));
     }
     @Test
     public void testTarkastaPysty() {
@@ -96,9 +105,8 @@ public class TarkastajaTest {
         for (int i = 4; i < 9; i++) {
             sys.setArvoTaulukkoon(i, 5, 10);
         }
-        sys.setArvoTaulukkoon(0, 5, 10);
-        sys.setArvoTaulukkoon(1, 5, 10);
-        assertEquals(true, tark.tarkastaPysty());
+        
+        assertEquals(true, tark.tarkastaPysty(8,5));
     }
     
     @Test
@@ -110,7 +118,7 @@ public class TarkastajaTest {
         }
         sys.setArvoTaulukkoon(0, 5, 10);
         sys.setArvoTaulukkoon(1, 5, 10);
-        assertNotEquals(true, tark.tarkastaPysty());
+        assertNotEquals(true, tark.tarkastaPysty(4,5));
     }
     
     @Test
@@ -120,7 +128,7 @@ public class TarkastajaTest {
         for (int i = 0; i < 5; i++) {
             sys.setArvoTaulukkoon(i, 9, 10);
         }
-        assertEquals(true, tark.tarkastaPysty());
+        assertEquals(true, tark.tarkastaPysty(0,9));
     }
     
     @Test
@@ -130,7 +138,7 @@ public class TarkastajaTest {
         for (int i = 0; i < 3; i++) {
             sys.setArvoTaulukkoon(i, 5, 10);
         }
-        assertNotEquals(true, tark.tarkastaPysty());
+        assertNotEquals(true, tark.tarkastaPysty(0,5));
     }
     
     @Test
@@ -140,15 +148,11 @@ public class TarkastajaTest {
         for (int i = 0; i < 4; i++) {
             sys.setArvoTaulukkoon(i, 2, 1);
         }
-        assertNotEquals(true, tark.tarkastaPysty());
+        assertNotEquals(true, tark.tarkastaPysty(0,2));
     }    
-    
-    @Test
-    public void testTarkastaDiagonal() {
-    }
 
     @Test
-    public void testVasenYlhaaltaDiagnolOikeaYlaosa() { // vasemmasta yläkulmasta puoleen väliin. Oikealle kääntyvät suorat
+    public void testVasenYlhaaltaDiagnolOikeaYlaosa() { 
         Pelisysteemi sys = new Pelisysteemi(10);
         Tarkastaja tark = new Tarkastaja(sys);         
         int y = 0;                                         
@@ -157,7 +161,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertEquals(true, tark.vasenYlhaaltaDiagnolOikeaYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 0));
     }
     
     @Test
@@ -170,7 +174,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertEquals(true, tark.vasenYlhaaltaDiagnolOikeaYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 4));
     }
     
     @Test
@@ -183,7 +187,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertEquals(true, tark.vasenYlhaaltaDiagnolOikeaYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 5));
     }
     
     @Test
@@ -196,7 +200,7 @@ public class TarkastajaTest {
             y++;
         }
 
-        assertNotEquals(true, tark.vasenYlhaaltaDiagnolOikeaYlaosa());
+        assertNotEquals(true, tark.tarkastaDiagonal(0, 0));
     }
     
     @Test
@@ -210,7 +214,7 @@ public class TarkastajaTest {
         sys.setArvoTaulukkoon(5, 6, 10);
         sys.setArvoTaulukkoon(7, 8, 10);
 
-        assertNotEquals(true, tark.vasenYlhaaltaDiagnolOikeaYlaosa());
+        assertNotEquals(true, tark.tarkastaDiagonal(0, 1));
     }
     
     @Test
@@ -223,7 +227,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertEquals(true, tark.vasenYlhaaltaDiagonalAlasOikeaAlaosa());    
+        assertEquals(true, tark.tarkastaDiagonal(2, 1));    
     }
     
     @Test
@@ -236,7 +240,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertEquals(true, tark.vasenYlhaaltaDiagonalAlasOikeaAlaosa());    
+        assertEquals(true, tark.tarkastaDiagonal(5, 3));    
     }
     
     @Test
@@ -248,8 +252,7 @@ public class TarkastajaTest {
             sys.setArvoTaulukkoon(x, y, 10);
             y++;
         }
-        
-        assertEquals(true, tark.vasenYlhaaltaDiagonalAlasOikeaAlaosa());    
+        assertEquals(true, tark.tarkastaDiagonal(5, 0));    
     }
     
     @Test
@@ -262,7 +265,7 @@ public class TarkastajaTest {
             y++;
         }
         
-        assertNotEquals(true, tark.vasenYlhaaltaDiagonalAlasOikeaAlaosa());    
+        assertNotEquals(true, tark.tarkastaDiagonal(3, 4));    
     }
     
     @Test
@@ -276,7 +279,7 @@ public class TarkastajaTest {
         sys.setArvoTaulukkoon(7, 5, 10);
         sys.setArvoTaulukkoon(8, 6, 10);
         
-        assertNotEquals(true, tark.vasenYlhaaltaDiagonalAlasOikeaAlaosa());    
+        assertNotEquals(true, tark.tarkastaDiagonal(3, 1));    
     }
     @Test
     public void testOikeaYlhaaltaDiagnolVasenAlasYlaosa() {
@@ -288,7 +291,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.oikeaYlhaaltaDiagnolVasenAlasYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 9));
     }
     
     @Test
@@ -301,7 +304,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.oikeaYlhaaltaDiagnolVasenAlasYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 6));
     }
     
     @Test
@@ -314,7 +317,7 @@ public class TarkastajaTest {
             y--;
         }
 
-        assertEquals(true, tark.oikeaYlhaaltaDiagnolVasenAlasYlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(0, 4));
     }
 
 @Test
@@ -327,7 +330,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertNotEquals(true, tark.oikeaYlhaaltaDiagnolVasenAlasYlaosa());
+        assertNotEquals(true, tark.tarkastaDiagonal(0, 9));
     }
     
     @Test
@@ -341,7 +344,7 @@ public class TarkastajaTest {
         sys.setArvoTaulukkoon(4, 3, 10);
         sys.setArvoTaulukkoon(5, 2, 10);
         
-        assertNotEquals(true, tark.oikeaYlhaaltaDiagnolVasenAlasYlaosa());    
+        assertNotEquals(true, tark.tarkastaDiagonal(4, 3));
     }
     
     @Test
@@ -355,7 +358,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(1, 9));
     }
     
     @Test
@@ -369,7 +372,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(4, 7));
     }    
     
     @Test
@@ -383,7 +386,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa());
+        assertEquals(true, tark.tarkastaDiagonal(5, 9));
     }    
     
     @Test
@@ -397,7 +400,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertNotEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa());
+        assertNotEquals(true, tark.tarkastaDiagonal(6, 7));
     }    
     
     @Test
@@ -411,28 +414,10 @@ public class TarkastajaTest {
         sys.setArvoTaulukkoon(8, 4, 10);
         sys.setArvoTaulukkoon(9, 3, 10);
         
-        assertNotEquals(true, tark.oikeaYlhaaltaDiagonalVasenAlasAlaosa()); 
+        assertNotEquals(true, tark.tarkastaDiagonal(4, 8));
     }
 
-    @Test
-    public void testLaskePistearvo() {
-        Pelisysteemi sys = new Pelisysteemi();
-        Tarkastaja tark = new Tarkastaja(sys); 
-        sys.setArvoTaulukkoon(0, 0, 1);
-        sys.setArvoTaulukkoon(1, 1, 1);
-        sys.setArvoTaulukkoon(2, 2, 1);
-        assertEquals(10, tark.laskePistearvo()); 
-    }
-    
-    @Test
-    public void testLaskePistearvoOvoitto() {
-        Pelisysteemi sys = new Pelisysteemi();
-        Tarkastaja tark = new Tarkastaja(sys); 
-        sys.setArvoTaulukkoon(0, 0, 10);
-        sys.setArvoTaulukkoon(1, 0, 10);
-        sys.setArvoTaulukkoon(2, 0, 10);
-        assertEquals(-10, tark.laskePistearvo()); 
-    }
+
 
     @Test
     public void testTarkastaDiagonalPieniTaulukko() {
@@ -442,7 +427,6 @@ public class TarkastajaTest {
         sys.setArvoTaulukkoon(1, 1, 10);
         sys.setArvoTaulukkoon(2, 2, 10);
         assertEquals(true, tark.tarkastaDiagonalPieniTaulukko()); 
-
     }
 
     @Test
@@ -456,10 +440,7 @@ public class TarkastajaTest {
             y--;
         }
         
-        assertEquals(true, tark.tarkastaDiagonalIsompiLauta());    
+        assertEquals(true, tark.tarkastaDiagonal(4, 7));
     }
-
-
-    
     
 }
