@@ -25,37 +25,22 @@ public class Tarkastaja {
     }
     
     public int laskePistearvo(int x, int y) {     
-        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y)) {
-            if (ristiFlag) {
-                ristiFlag = false;
-                return 10; // johtaa 'X' pelaajan voittoon
-            } else if (nollaFlag) {
-                nollaFlag = false;
-                return -10; // johtaa 'O' pelaajan voittoon
-            }
+        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y) || tarkastaDiagonal(x, y)) {
+            return kummanVoittoon();           
         }
+        return 0;
+    }
+    
+    public int kummanVoittoon() {
+        if (ristiFlag) { // johtaa 'X' pelaajan voittoon
+            ristiFlag = false;
+            return 10;
+        } 
         
-        if (taulukonPituus == 3) {
-            if (tarkastaDiagonalPieniTaulukko()) {
-                if (ristiFlag) {
-                     ristiFlag = false;
-                     return 10;
-                 } else if (nollaFlag) {
-                     nollaFlag = false;
-                     return -10;
-                 }            
-            }
-        } else {
-            if (tarkastaDiagonal(x, y)) {
-                if (ristiFlag) {
-                     ristiFlag = false;
-                     return 10;
-                 } else if (nollaFlag) {
-                     nollaFlag = false;
-                     return -10;
-                 } 
-            }
-        }
+        if (nollaFlag) { // johtaa 'O' pelaajan voittoon
+            nollaFlag = false;
+            return -10;
+        } 
         return 0;
     }
     
@@ -80,9 +65,7 @@ public class Tarkastaja {
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
      */
     public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
-        if (taulukonPituus == 3) {
-            if (tarkastaPieniTauluVaaka(viimesinX)) return true;
-        }
+        if (taulukonPituus == 3) return (tarkastaPieniTauluVaaka(viimesinX));
         
         if (viimesinY < 5) { // jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
             int[] luvut = new int[taulukonPituus - (5 - viimesinY)]; 
@@ -110,16 +93,14 @@ public class Tarkastaja {
     }
     
     public boolean tarkastaPysty(int viimesinX, int viimesinY) { 
+        if (taulukonPituus == 3) return tarkastaPieniTauluPysty(viimesinY);  
+        
         if (viimesinX < 5) {
-            if (taulukonPituus == 3) {
-                if (tarkastaPieniTauluPysty(viimesinY)) return true;
-            } else {
-                int[] luvut = new int[taulukonPituus - (5 - viimesinX)];
-                for (int i = 0; i < luvut.length; i++) {
-                    luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
-                }
-                if (ikkunaLiuku(luvut)) return true;
+            int[] luvut = new int[taulukonPituus - (5 - viimesinX)];
+            for (int i = 0; i < luvut.length; i++) {
+                luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
             }
+            if (ikkunaLiuku(luvut)) return true;
         } else if (viimesinX > 5) {
             int[] luvut = new int[taulukonPituus - (viimesinX - 4)];
             int alku = viimesinX - 4;
@@ -140,58 +121,55 @@ public class Tarkastaja {
     }  
     
     public boolean tarkastaDiagonal(int x, int y) {
-       return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));
+        if (taulukonPituus == 3) return tarkastaDiagonalPieniTaulukko();
+        return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));
     }
     
     // tarkastetaan tällä hetkellä koko diagonal rivi kohdasta viimesinX, viimesinY
     public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
         if (viimesinX > 5 || viimesinY < 4) return false; // ei voi syntyä 5 suoraa
         int[] luvut = new int[10];
-        int xx = viimesinX;
-        int yy = viimesinY;
         
         while (true) { // mennään diagonal rivin alkuun
-            if (xx == 0 || yy == 9) break;
-            xx--;
-            yy++;
+            if (viimesinX == 0 || viimesinY == 9) break;
+            viimesinX--;
+            viimesinY++;
         }
         int ind = 0;
         while (true) { // muodostetaan taulukko johon diagonal kohdan arvot
-            if (xx == 10 || yy == -1) break; // jos taulukon reunassa
-            luvut[ind] = sys.getArvoTaulukosta(xx, yy);
-            xx++;
-            yy--;
+            if (viimesinX == 10 || viimesinY == -1) break; // jos taulukon reunassa
+            luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);
+            viimesinX++;
+            viimesinY--;
             ind++;
         }
-        return (ikkunaLiuku(luvut));
+        return ikkunaLiuku(luvut);
     }
     
     public boolean tarkastaOikeaDiagonal(int viimesinX, int viimesinY) {
         if (viimesinX > 5 || viimesinY > 5) return false;
         int[] luvut = new int[10];
-        int xx = viimesinX;
-        int yy = viimesinY;
         
-        while (true) { // pumpataan alkuun
-            if (xx == 0 || yy == 0) break;
-            xx--;
-            yy--;
+        while (true) { // pumpataan rivin alkuun
+            if (viimesinX == 0 || viimesinY == 0) break;
+            viimesinX--;
+            viimesinY--;
         }
         int ind = 0;
         while (true) {
-            if (xx == 10 || yy == 10) break;
-            luvut[ind] = sys.getArvoTaulukosta(xx, yy);
-            xx++;
-            yy++;
+            if (viimesinX == 10 || viimesinY == 10) break;
+            luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);
+            viimesinX++;
+            viimesinY++;
             ind++;
         }
-        return (ikkunaLiuku(luvut));
+        return ikkunaLiuku(luvut);
     }
     
     
     
     public boolean sisaltaakoVoittoRivin(int rivi) {
-        if (sys.getTaulukonPituus() == 3) {
+        if (sys.getTaulukonPituus() == 3) { // pieni taulu
             if (rivi == 3 || rivi == 30) {
                 if (rivi == 3) ristiFlag = true;
                 if (rivi == 30) nollaFlag = true;
@@ -219,5 +197,3 @@ public class Tarkastaja {
         return false;
     }
 }
-
-    
