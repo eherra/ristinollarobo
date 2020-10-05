@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class Tarkastaja {
     private Pelisysteemi sys;
     private int taulukonPituus;
-    private boolean ristiFlag, nollaFlag;
+    private boolean ristiFlag, nollaFlag; // tiedetään kumman voittoon tilanne päätynyt
     private int tarkistettavaRivi;
     
     public Tarkastaja(Pelisysteemi systeemi) {
@@ -25,9 +25,7 @@ public class Tarkastaja {
     }
     
     public int laskePistearvo(int x, int y) {     
-        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y) || tarkastaDiagonal(x, y)) {
-            return kummanVoittoon();           
-        }
+        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y) || tarkastaDiagonal(x, y)) return kummanVoittoon();           
         return 0;
     }
     
@@ -46,21 +44,22 @@ public class Tarkastaja {
     
     // 3x3 pienen taulun tarkastukset
     public boolean tarkastaPieniTauluVaaka(int x) {
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));
+        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));
     }
 
     public boolean tarkastaPieniTauluPysty(int y) {
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));
+        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));
     }  
 
     public boolean tarkastaDiagonalPieniTaulukko() {
-        if (sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;
-        return sisaltaakoVoittoRivin(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));
+        if (sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;
+        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));
     } 
     
     /**
-     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkatus tehokas, mutta koodin
-     * luettavuus kärsi hieman, jotta turhia kohtia ei tarkasteta riviltä eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
+     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa
+     * (window sliding technique=) rivin lukujen läpikäyntiin mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
+     * eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
      * @param viimesinX 
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
      */
@@ -168,10 +167,10 @@ public class Tarkastaja {
     
     
     
-    public boolean sisaltaakoVoittoRivin(int rivi) {
+    public boolean sisaltaakoVoittoArvon(int rivi) {
         if (sys.getTaulukonPituus() == 3) { // pieni taulu
             if (rivi == 3 || rivi == 30) {
-                if (rivi == 3) ristiFlag = true;
+                if (rivi == 3) ristiFlag = true; // tiedetään kumman voittoon päätynyt 
                 if (rivi == 30) nollaFlag = true;
                 return true;
             }
@@ -184,16 +183,19 @@ public class Tarkastaja {
         }
         return false;
     }
-    
+    // window sliding tekniikka
     public boolean ikkunaLiuku(int[] luvut) {
-        for (int i = 0; i < luvut.length - 5 + 1; i++) {
-            int summa = 0; 
-            for (int j = 0; j < 5; j++) { // tätä saa vielä nopeammaksi, sillä riviä ei tarvitse loopata joka kerta vaan miinusta viimesin luku ja plussata seuraava luku
-                summa += luvut[i + j];
-            }
-            if (sisaltaakoVoittoRivin(summa)) return true;
+        int ikkunanSumma = 0;
+        for (int i = 0; i < 5; i++) {
+            ikkunanSumma += luvut[i];
         }
+        if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;
         
+        for (int i = 0; i < luvut.length - 5; i++) {
+            ikkunanSumma -= luvut[i];
+            ikkunanSumma += luvut[i+5];
+            if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;
+        }
         return false;
     }
 }
