@@ -28,8 +28,8 @@ public class Minimax {
         int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
         if (pisteet == 100) return pisteet - syvyys;
         if (pisteet == -100) return pisteet + syvyys;
-         
         if (!onkoRuutujaJaljella()) return 0;
+//         if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 

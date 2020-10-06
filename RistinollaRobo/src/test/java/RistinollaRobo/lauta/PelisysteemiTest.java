@@ -17,6 +17,10 @@ import static org.junit.Assert.*;
  */
 public class PelisysteemiTest {
 
+    @Before
+    public void setUp() throws Exception {
+    }
+
     @Test
     public void testGetVuoro() {
         Pelisysteemi sys = new Pelisysteemi();
@@ -107,5 +111,19 @@ public class PelisysteemiTest {
         Pelisysteemi sys2 = new Pelisysteemi(10);
         assertEquals(10, sys2.getTaulukonPituus());
     }
-    
+
+    @Test
+    public void testVuorojaJaljella() {
+        Pelisysteemi sys = new Pelisysteemi();
+        Tarkastaja t = new Tarkastaja(sys);
+        Minimax m = new Minimax(t, sys);
+        sys.setTarkastaja(t);
+        sys.setMinimax(m);
+        
+        assertEquals(true, sys.vuorojaJaljella());
+        for (int i = 0; i < sys.getTaulukonPituus() * sys.getTaulukonPituus(); i++) {
+            sys.vuoroEteenpäin();
+        }
+        assertEquals(false, sys.vuorojaJaljella());
+    }
 }
