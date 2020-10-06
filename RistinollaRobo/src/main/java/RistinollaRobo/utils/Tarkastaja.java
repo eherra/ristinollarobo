@@ -32,12 +32,12 @@ public class Tarkastaja {
     public int kummanVoittoon() {
         if (ristiFlag) { // johtaa 'X' pelaajan voittoon
             ristiFlag = false;
-            return 10;
+            return 100;
         } 
         
         if (nollaFlag) { // johtaa 'O' pelaajan voittoon
             nollaFlag = false;
-            return -10;
+            return -100;
         } 
         return 0;
     }
@@ -58,7 +58,7 @@ public class Tarkastaja {
     
     /**
      * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa
-     * (window sliding technique=) rivin lukujen läpikäyntiin mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
+     * (window sliding technique) rivin lukujen läpikäyntiin mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
      * eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
      * @param viimesinX 
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
@@ -110,7 +110,7 @@ public class Tarkastaja {
             }
             if (ikkunaLiuku(luvut)) return true;
         } else {
-            int[] luvut = new int[10];
+            int[] luvut = new int[taulukonPituus];
             for (int i = 0; i < luvut.length; i++) {
                 luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
             }
@@ -126,17 +126,16 @@ public class Tarkastaja {
     
     // tarkastetaan tällä hetkellä koko diagonal rivi kohdasta viimesinX, viimesinY
     public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
-        if (viimesinX > 5 || viimesinY < 4) return false; // ei voi syntyä 5 suoraa
-        int[] luvut = new int[10];
+        int[] luvut = new int[taulukonPituus];
         
         while (true) { // mennään diagonal rivin alkuun
-            if (viimesinX == 0 || viimesinY == 9) break;
+            if (viimesinX == 0 || viimesinY == taulukonPituus - 1) break;
             viimesinX--;
             viimesinY++;
         }
         int ind = 0;
         while (true) { // muodostetaan taulukko johon diagonal kohdan arvot
-            if (viimesinX == 10 || viimesinY == -1) break; // jos taulukon reunassa
+            if (viimesinX == taulukonPituus || viimesinY == -1) break; // jos taulukon reunassa
             luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);
             viimesinX++;
             viimesinY--;
@@ -146,8 +145,7 @@ public class Tarkastaja {
     }
     
     public boolean tarkastaOikeaDiagonal(int viimesinX, int viimesinY) {
-        if (viimesinX > 5 || viimesinY > 5) return false;
-        int[] luvut = new int[10];
+        int[] luvut = new int[taulukonPituus];
         
         while (true) { // pumpataan rivin alkuun
             if (viimesinX == 0 || viimesinY == 0) break;
@@ -156,7 +154,7 @@ public class Tarkastaja {
         }
         int ind = 0;
         while (true) {
-            if (viimesinX == 10 || viimesinY == 10) break;
+            if (viimesinX == taulukonPituus || viimesinY == taulukonPituus) break;
             luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);
             viimesinX++;
             viimesinY++;
@@ -186,12 +184,12 @@ public class Tarkastaja {
     // window sliding tekniikka
     public boolean ikkunaLiuku(int[] luvut) {
         int ikkunanSumma = 0;
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) { // lasketaan eka ikkuna
             ikkunanSumma += luvut[i];
         }
         if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;
         
-        for (int i = 0; i < luvut.length - 5; i++) {
+        for (int i = 0; i < luvut.length - 5; i++) { // liikutetaan ikkunaa yhdellä eteenpäin
             ikkunanSumma -= luvut[i];
             ikkunanSumma += luvut[i+5];
             if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;

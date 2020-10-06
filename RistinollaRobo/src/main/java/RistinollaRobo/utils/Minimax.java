@@ -26,7 +26,9 @@ public class Minimax {
     
     public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa, int viimesinX, int viimesinY) {
         int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
-        if (pisteet == 10 || pisteet == -10) return pisteet;
+        if (pisteet == 100) return pisteet - syvyys;
+        if (pisteet == -100) return pisteet + syvyys;
+         
         if (!onkoRuutujaJaljella()) return 0;
 
         if (onkoMaxVuorossa) { 
