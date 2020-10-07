@@ -66,13 +66,13 @@ public class Tarkastaja {
     public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
         if (taulukonPituus == 3) return (tarkastaPieniTauluVaaka(viimesinX));
         
-        if (viimesinY < 5) { // jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
+        if (viimesinY < 5 && taulukonPituus > 9) { // tämä nopeuttamaan tarkastusta isoimmille laudoille eli koko 10x10 ja ylöspäin. jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
             int[] luvut = new int[taulukonPituus - (5 - viimesinY)]; 
             for (int i = 0; i < luvut.length; i++) {
                 luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
             }
             if (ikkunaLiuku(luvut)) return true;
-        } else if (taulukonPituus - viimesinY < 5) { // jos ollaan oikeassa laidassa
+        } else if (taulukonPituus - viimesinY < 5 && taulukonPituus > 9) { // jos ollaan oikeassa laidassa
             int[] luvut = new int[taulukonPituus - (viimesinY - 4)];
             int alku = viimesinY - 4;
             
@@ -81,7 +81,7 @@ public class Tarkastaja {
                 alku++;
             }
             if (ikkunaLiuku(luvut)) return true;
-        } else {
+        } else { 
             int[] luvut = new int[taulukonPituus];
             for (int i = 0; i < luvut.length; i++) {
                 luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
@@ -94,13 +94,13 @@ public class Tarkastaja {
     public boolean tarkastaPysty(int viimesinX, int viimesinY) { 
         if (taulukonPituus == 3) return tarkastaPieniTauluPysty(viimesinY);  
         
-        if (viimesinX < 5) {
+        if (viimesinX < 5 && taulukonPituus > 9) {
             int[] luvut = new int[taulukonPituus - (5 - viimesinX)];
             for (int i = 0; i < luvut.length; i++) {
                 luvut[i] = sys.getArvoTaulukosta(i, viimesinY);
             }
             if (ikkunaLiuku(luvut)) return true;
-        } else if (viimesinX > 5) {
+        } else if (viimesinX > 5 && taulukonPituus > 9) {
             int[] luvut = new int[taulukonPituus - (viimesinX - 4)];
             int alku = viimesinX - 4;
 

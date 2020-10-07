@@ -29,7 +29,8 @@ public class Minimax {
         if (pisteet == 100) return pisteet; 
         if (pisteet == -100) return pisteet;
         if (!onkoRuutujaJaljella()) return 0;
-        // if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä
+        // if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä. 
+        // 5x5 laudalla menee ihan ok vielä 7 syvyydellä. Teen ohjelmaan myöhemmin, joka kertoo mikä max syvyys on milläkin pelihetkellä. (riippuu tyhjien ruutujen määrästä)
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 
