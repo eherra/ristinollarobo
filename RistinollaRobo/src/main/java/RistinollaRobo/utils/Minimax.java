@@ -26,11 +26,10 @@ public class Minimax {
     
     public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa, int viimesinX, int viimesinY) {
         int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
-        if (pisteet == 100) return pisteet; 
-        if (pisteet == -100) return pisteet;
-        if (!onkoRuutujaJaljella()) return 0;
-        // if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä. 
+        if (pisteet == 100 || pisteet == -100) return pisteet; 
+        if (syvyys == 3) return pisteet; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä. 
         // 5x5 laudalla menee ihan ok vielä 7 syvyydellä. Teen ohjelmaan myöhemmin, joka kertoo mikä max syvyys on milläkin pelihetkellä. (riippuu tyhjien ruutujen määrästä)
+        if (!onkoRuutujaJaljella()) return 0;
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 

@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class Kayttoliittyma extends Application {
     @Override
     public void start(Stage ikkuna) throws Exception {
-        Pelisysteemi systeemi = new Pelisysteemi(); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla, sekä minimax algosta syvyys kommentti veke
+        Pelisysteemi systeemi = new Pelisysteemi(10); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla, sekä minimax algosta syvyys kommentti veke
         Tarkastaja tark = new Tarkastaja(systeemi);
         systeemi.setTarkastaja(tark);
         Minimax minMax = new Minimax(tark, systeemi);
@@ -103,7 +103,6 @@ public class Kayttoliittyma extends Application {
                 palautus.add(nappula, j, i);
             }
         }
-
         return modifoiGridi(palautus);
     }
     
