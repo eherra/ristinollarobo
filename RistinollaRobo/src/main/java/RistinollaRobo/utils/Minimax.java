@@ -26,10 +26,10 @@ public class Minimax {
     
     public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa, int viimesinX, int viimesinY) {
         int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
-        if (pisteet == 100) return pisteet - syvyys;
-        if (pisteet == -100) return pisteet + syvyys;
+        if (pisteet == 100) return pisteet; 
+        if (pisteet == -100) return pisteet;
         if (!onkoRuutujaJaljella()) return 0;
-//         if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä
+        // if (syvyys == 3) return 0; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä
 
         if (onkoMaxVuorossa) { 
             int parasPiste = Integer.MIN_VALUE; 
@@ -48,7 +48,7 @@ public class Minimax {
                     } 
                 } 
             } 
-            return parasPiste; 
+            return parasPiste - syvyys; 
         } 
         else { 
             int parasPiste = Integer.MAX_VALUE; 
@@ -67,7 +67,7 @@ public class Minimax {
                     } 
                 } 
             } 
-        return parasPiste; 
+        return parasPiste + syvyys; 
         } 
     }
     
