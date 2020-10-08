@@ -22,10 +22,10 @@ import javafx.stage.Stage;
  * Tekoäly voittaa kaikki pelit.
  */
 
-public class Kayttoliittyma extends Application {
+public class Kayttoliittyma extends Application {    
     @Override
     public void start(Stage ikkuna) throws Exception {
-        Pelisysteemi systeemi = new Pelisysteemi(10); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla, sekä minimax algosta syvyys kommentti veke
+        Pelisysteemi systeemi = new Pelisysteemi(); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla. Laudan koot 12-15 hieman hitaita (noin 1-10s kestää siirto)
         Tarkastaja tark = new Tarkastaja(systeemi);
         systeemi.setTarkastaja(tark);
         Minimax minMax = new Minimax(tark, systeemi);
@@ -77,7 +77,7 @@ public class Kayttoliittyma extends Application {
                             label.setText("Loppu! Tekoäly voittaa!");
                             return;
                         } else if (pisteet == 100) {
-                            label.setText("Loppu! Ihminen voittaa!"); // jos laudan koko 3x3, tämä ei tapahdu koskaan sillä tekoäly voittamaton
+                            label.setText("Loppu! Ihminen voittaa!");
                             return;
                         } else {
                             label.setText("Loppu! Tasapeli!"); 

@@ -11,7 +11,7 @@ public class Minimax {
     private Tarkastaja tark;
     private Pelisysteemi sys;
     private int[] liike;
-    private int ruutujaPelattuMaara;
+    private int ruutujaPelattuMaara, maxSyvyys;
     
     /**
      *
@@ -27,8 +27,7 @@ public class Minimax {
     public int suoritaMinimax(int[][] taulukko, int syvyys, int alpha, int beta, Boolean onkoMaxVuorossa, int viimesinX, int viimesinY) {
         int pisteet = tark.laskePistearvo(viimesinX, viimesinY); 
         if (pisteet == 100 || pisteet == -100) return pisteet; 
-        if (syvyys == 3) return pisteet; // jos haluaa pelata isommilla laudoilla ilman isoa viivettä. 
-        // 5x5 laudalla menee ihan ok vielä 7 syvyydellä. Teen ohjelmaan myöhemmin, joka kertoo mikä max syvyys on milläkin pelihetkellä. (riippuu tyhjien ruutujen määrästä)
+        if (syvyys == maxSyvyys) return pisteet; // jos mahdollisia siirtoja paljon, kaikkia ei käydä läpi.
         if (!onkoRuutujaJaljella()) return 0;
 
         if (onkoMaxVuorossa) { 
@@ -74,6 +73,7 @@ public class Minimax {
     public int[] getParasLiike() {
         int parasArvo = Integer.MAX_VALUE; 
         liike = new int[2];
+        maxSyvyys = asetaMaxSyvyys();
 
         for (int i = 0; i < sys.getTaulukonPituus(); i++) { 
             for (int j = 0; j < sys.getTaulukonPituus(); j++) { 
@@ -102,4 +102,21 @@ public class Minimax {
     public boolean onkoRuutujaJaljella() {
         return ruutujaPelattuMaara != sys.getTaulukonPituus() * sys.getTaulukonPituus(); // onko tyhjiä paikkoja jäljellä
     }
+    
+    public int getTyhjienMaara() {
+        return sys.getTaulukonPituus() * sys.getTaulukonPituus() - ruutujaPelattuMaara;
+    }
+    
+    public int asetaMaxSyvyys() {
+        if (sys.getTaulukonPituus() == 3) return 8;
+        int tyhjia = getTyhjienMaara();
+        
+        if (tyhjia > 40) return 3;
+        if (tyhjia > 30) return 4;
+        if (tyhjia > 25) return 5;
+        if (tyhjia > 15) return 6;
+        if (tyhjia > 10) return 7;
+        
+        return 8;
+    } 
 }
