@@ -5,8 +5,7 @@
  */
 package RistinollaRobo.lauta;
 
-import RistinollaRobo.utils.Minimax;
-import RistinollaRobo.utils.Tarkastaja;
+import RistinollaRobo.algo.Minimax;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

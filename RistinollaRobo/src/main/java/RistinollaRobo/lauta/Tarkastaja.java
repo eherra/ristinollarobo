@@ -1,5 +1,5 @@
 
-package RistinollaRobo.utils;
+package RistinollaRobo.lauta;
 
 import RistinollaRobo.lauta.Pelisysteemi;
 import java.util.Arrays;
@@ -39,7 +39,7 @@ public class Tarkastaja {
             nollaFlag = false;
             return -100;
         } 
-        return 0;
+        return -1; // riviin ei päästä koskaan
     }
     
     // 3x3 pienen taulun tarkastukset

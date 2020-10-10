@@ -1,9 +1,9 @@
 
 package RistinollaRobo.ui;
 
-import RistinollaRobo.utils.Minimax;
+import RistinollaRobo.algo.Minimax;
 import RistinollaRobo.lauta.Pelisysteemi;
-import RistinollaRobo.utils.Tarkastaja;
+import RistinollaRobo.lauta.Tarkastaja;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 public class Kayttoliittyma extends Application {    
     @Override
     public void start(Stage ikkuna) throws Exception {
-        Pelisysteemi systeemi = new Pelisysteemi(); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla. Laudan koot 12-15 hieman hitaita (noin 1-10s kestää siirto)
+        Pelisysteemi systeemi = new Pelisysteemi(10); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla. Laudan koot 12-15 hieman hitaita (noin 1-10s kestää siirto)
         Tarkastaja tark = new Tarkastaja(systeemi);
         systeemi.setTarkastaja(tark);
         Minimax minMax = new Minimax(tark, systeemi);

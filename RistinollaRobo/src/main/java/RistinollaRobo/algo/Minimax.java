@@ -1,7 +1,8 @@
 
-package RistinollaRobo.utils;
+package RistinollaRobo.algo;
 
 import RistinollaRobo.lauta.Pelisysteemi;
+import RistinollaRobo.lauta.Tarkastaja;
 
 /**
  *
@@ -108,15 +109,16 @@ public class Minimax {
     }
     
     public int asetaMaxSyvyys() {
-        if (sys.getTaulukonPituus() == 3) return 8;
+        if (sys.getTaulukonPituus() == 3) return 9;
         int tyhjia = getTyhjienMaara();
         
         if (tyhjia > 40) return 3;
         if (tyhjia > 30) return 4;
         if (tyhjia > 25) return 5;
-        if (tyhjia > 15) return 6;
-        if (tyhjia > 10) return 7;
+        if (tyhjia > 20) return 6;
+        if (tyhjia > 15) return 7;
+        if (tyhjia > 10) return 8;
         
-        return 8;
+        return 9;
     } 
 }

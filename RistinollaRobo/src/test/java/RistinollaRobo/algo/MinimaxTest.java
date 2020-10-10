@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package RistinollaRobo.utils;
+package RistinollaRobo.algo;
 
+import RistinollaRobo.algo.Minimax;
 import RistinollaRobo.lauta.Pelisysteemi;
+import RistinollaRobo.lauta.Tarkastaja;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

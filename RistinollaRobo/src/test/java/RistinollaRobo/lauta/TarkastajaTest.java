@@ -1,7 +1,7 @@
 
-package RistinollaRobo;
+package RistinollaRobo.lauta;
 
-import RistinollaRobo.utils.Tarkastaja;
+import RistinollaRobo.*;
 import RistinollaRobo.lauta.Pelisysteemi;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
