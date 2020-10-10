@@ -5,7 +5,7 @@ Ohjelma edistynyt huomattavasti tällä viikolla ja mukavasti sain tehostettua o
 <h1>Mitä opin tällä viikolla / tänään?</h1>
 Opin kuinka impletoida ikkuna liuku-tekniikka. 
 <h1>Mikä jäi epäselväksi tai tuottanut vaikeuksia?</h1>
-Hieman JavaFX graafisen liittymän kanssa painia, mutta ei isoja ongelmia.
+Hieman JavaFX graafisen liittymän kanssa painia, mutta ei isoja ongelmia. </br> Vertaisarvioinnin myötä huomasin, että ohjelma ei käänny terminaalista käynnistäessä (ei ilmeisesti löydä JavaFX komponenttia). Ohjelma toimii moitteettomasti Netbeansissta tai "gradle run" komennolla terminaalista. En tähän vielä löytänyt toimivaa ratkaisua.
 <h1>Mitä teen seuraavaksi?</h1>
 Suunnittelen ja lisään graafisen liittymän josta voi valita haluamansa pelialustan koon. Tähän teen alkunäytön, josta siirrytään pelinäyttöön. Teen myös napit "Uusi peli" napin joka ilmestyy kun peli on päättynyt sekä "takaisin" napin, josta päääsee alkunäyttöön valitsemaan taulukon koon. 
 </br> Testaus-, ja toteutusdokumenttit valmiiksi sekä käyttöohjeen teko. 
