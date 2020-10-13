@@ -15,13 +15,8 @@ public class Pelisysteemi {
     private int[][] taulukko;
     private Tarkastaja tark;
     private Minimax minimax;
-   
-    public Pelisysteemi() {
-        this(3);
-    }
-   
+
     /**
-     *
      * @param koko laudan koko riippuen pelaajan valinnasta
      */
     public Pelisysteemi(int koko) { // jos valitaan isompi alusta

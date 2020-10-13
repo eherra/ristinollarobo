@@ -10,8 +10,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -23,28 +27,73 @@ import javafx.stage.Stage;
  */
 
 public class Kayttoliittyma extends Application {    
+    private Boolean pieniL, keskiL, isoL;
+    
     @Override
     public void start(Stage ikkuna) throws Exception {
-        Pelisysteemi systeemi = new Pelisysteemi(10); // vaihda tähän parametriksi 5-15 jos haluat pelata isommalla laudalla. Laudan koot 12-15 hieman hitaita (noin 1-10s kestää siirto)
-        Tarkastaja tark = new Tarkastaja(systeemi);
-        systeemi.setTarkastaja(tark);
-        Minimax minMax = new Minimax(tark, systeemi);
-        systeemi.setMinimax(minMax);
+        Button pieniLauta = new Button("3x3");
+        Button keskiLauta = new Button("10x10");
+        Button isoLauta = new Button("15x15");
+        Button kaynnistaPeli = new Button("Käynnistä peli!");
         
-        BorderPane asettelu = new BorderPane();
-      
-        Label labeli = new Label("Vuoro: " + systeemi.getVuoro());
-        labeli.setFont(Font.font("Monospaced", 20));
+        pieniLauta.setFont(Font.font("Monospaced", 20));
+        keskiLauta.setFont(Font.font("Monospaced", 20));
+        isoLauta.setFont(Font.font("Monospaced", 20));
+        kaynnistaPeli.setFont(Font.font("Monospaced", 20));
+        pieniLauta.setStyle("-fx-background-color: #B4CDCD");
+        keskiLauta.setStyle("-fx-background-color: #B4CDCD");
+        isoLauta.setStyle("-fx-background-color: #B4CDCD");
+        kaynnistaPeli.setStyle("-fx-background-color: #B4CDCD");
+
+        Label ylateksti = new Label("RistinollaRobo");
+        ylateksti.setFont(Font.font("Monospaced", 40));
         
-        GridPane pane = lisaaNapit(systeemi, labeli, tark, minMax);
-        asettelu.setTop(labeli);        
-        asettelu.setPrefSize(300, 180);    
-        asettelu.setPadding(new Insets(10, 10, 10, 10));
-        asettelu.setCenter(pane);
+        HBox kokoNapit = new HBox();
+        kokoNapit.setSpacing(20);
+        kokoNapit.setAlignment(Pos.CENTER);
+        kokoNapit.getChildren().addAll(pieniLauta, keskiLauta, isoLauta);
         
-        Scene skene = new Scene(asettelu);
+        VBox keskiAsetus = new VBox();
+        keskiAsetus.setSpacing(30);
+        keskiAsetus.getChildren().addAll(ylateksti, kokoNapit, kaynnistaPeli);
+        keskiAsetus.setAlignment(Pos.CENTER);
         
-        ikkuna.setScene(skene);
+        BorderPane kaynnistysNaytto = new BorderPane();
+        kaynnistysNaytto.setPrefSize(500, 400);
+        kaynnistysNaytto.setCenter(keskiAsetus);
+        
+        pieniLauta.setOnMouseClicked(event -> {
+            pieniL = true;
+            keskiL = false;
+            isoL = false;
+            pieniLauta.setStyle("-fx-background-color: #5F9F9F");
+            keskiLauta.setStyle("-fx-background-color: #B4CDCD");
+            isoLauta.setStyle("-fx-background-color: #B4CDCD");
+        });
+        
+        keskiLauta.setOnMouseClicked(event -> {
+            pieniL = false;
+            keskiL = true;
+            isoL = false;
+            pieniLauta.setStyle("-fx-background-color: #B4CDCD");
+            keskiLauta.setStyle("-fx-background-color: #5F9F9F");
+            isoLauta.setStyle("-fx-background-color: #B4CDCD");
+        });
+        
+        isoLauta.setOnMouseClicked(event -> {
+            pieniL = false;
+            keskiL = false;
+            isoL = true;
+            pieniLauta.setStyle("-fx-background-color: #B4CDCD");
+            keskiLauta.setStyle("-fx-background-color: #B4CDCD");
+            isoLauta.setStyle("-fx-background-color: #5F9F9F");
+        });
+        
+        kaynnistaPeli.setOnMouseClicked(event -> {
+            ikkuna.setScene(getPeliScene());
+        });
+                
+        ikkuna.setScene(new Scene(kaynnistysNaytto));
         ikkuna.show();
     }
     
@@ -113,5 +162,35 @@ public class Kayttoliittyma extends Application {
         palautus.setHgap(5);
         palautus.setPadding(new Insets(10, 10, 10, 10));
         return palautus;
+    }
+    
+    public Scene getPeliScene() {
+        Pelisysteemi systeemi = new Pelisysteemi(getLaudanKoko()); 
+        Tarkastaja tark = new Tarkastaja(systeemi);
+        systeemi.setTarkastaja(tark);
+        Minimax minMax = new Minimax(tark, systeemi);
+        systeemi.setMinimax(minMax);
+        
+        BorderPane asettelu = new BorderPane();
+      
+        Label labeli = new Label("Vuoro: " + systeemi.getVuoro());
+        labeli.setFont(Font.font("Monospaced", 20));
+        
+        GridPane pane = lisaaNapit(systeemi, labeli, tark, minMax);
+        asettelu.setTop(labeli);        
+        asettelu.setPrefSize(300, 180);    
+        asettelu.setPadding(new Insets(10, 10, 10, 10));
+        asettelu.setCenter(pane);
+        Scene pal = new Scene(asettelu);
+        
+        return pal;
+    }
+    
+    public int getLaudanKoko() {
+        int koko = 0;
+        if (keskiL) koko = 10;
+        else if (isoL) koko = 15;
+        else koko = 3;
+        return koko;
     }
 }
