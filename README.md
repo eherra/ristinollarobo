@@ -21,11 +21,12 @@ Mikäli gradle tool löytyy ladattuna koneeltasi, voit käynnistää sovelluksen
 </br>
 Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 </br>
-<h3> Dokumentit </h3>
+## Dokumentit 
 
-<h3> Viikkoraportit </h3>
-[a Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
-[Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)</br>
+## Viikkoraportit 
+[MIT](https://choosealicense.com/licenses/mit/)
+[Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
+[Viikkoraportti 2](viikkoraportti2.md)</br>
 [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)</br>
 [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)</br>
 [Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)</br>
