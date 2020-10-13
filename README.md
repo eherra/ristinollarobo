@@ -24,7 +24,7 @@ Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 <h3> Dokumentit </h3>
 
 <h3> Viikkoraportit </h3>
-[Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
+[a Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
 [Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)</br>
 [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)</br>
 [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)</br>
