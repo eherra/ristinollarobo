@@ -22,7 +22,7 @@ Mikäli gradle tool löytyy ladattuna koneeltasi, voit käynnistää sovelluksen
 Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 </br>
 <h3> Dokumentit </h3>
-[Määrittelydokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md) 
+[Määrittelydokumentti](#https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md) 
 [Testausdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Testausdokumentti.md)
 [Toteustusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)
 
