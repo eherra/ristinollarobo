@@ -22,12 +22,15 @@ Mikäli gradle tool löytyy ladattuna koneeltasi, voit käynnistää sovelluksen
 Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 </br>
 <h3> Dokumentit </h3>
-[Määrittelydokumentti](#https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md) 
+[Määrittelydokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md) 
 [Testausdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Testausdokumentti.md)
 [Toteustusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)
 
 <h3> Viikkoraportit </h3>
-[Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)
+<a href="#the-header">Link to Header</a>
+
+
+[Viikkoraportti 1](viikkoraportti1.md)
 [Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md) 
 [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)
 [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)   
