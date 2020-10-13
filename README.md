@@ -19,21 +19,18 @@ Mikäli gradle tool löytyy ladattuna koneeltasi, voit käynnistää sovelluksen
 </br>
 Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 </br>
+<h3> Dokumentit </h3>
+    * [Määrittelydokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md) 
+    * [Testausdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Testausdokumentti.md)
+    * [Toteustusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)
 
-<ul>
-    <li>[Määrittelydokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md)</li>
-    <li>[Testausdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Testausdokumentti.md) </li>
-    <li>[Toteustusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)</li>
-</ul>
-
-<ul>
-    <li>[Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</li>
-    <li>[Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)</li>    
-    <li>[Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)</li>    <li></li>
-    <li>[Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)</li>    
-    <li>[Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)</li>
-    <li>[Viikkoraportti 6](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti6.md)</li>    
-</ul>
+<h3> Viikkoraportit </h3>
+    * [Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)
+    * [Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md) 
+    * [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)
+    * [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)   
+    * [Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)
+    * [Viikkoraportti 6](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti6.md)
 </br>
 
 
