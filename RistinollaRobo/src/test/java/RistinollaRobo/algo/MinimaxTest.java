@@ -20,7 +20,7 @@ public class MinimaxTest {
     
     @Test
     public void testGetParasLiike() {
-        Pelisysteemi s = new Pelisysteemi();
+        Pelisysteemi s = new Pelisysteemi(3);
         Tarkastaja t = new Tarkastaja(s);
         Minimax m = new Minimax(t, s);
         s.setMinimax(m);

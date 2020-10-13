@@ -22,7 +22,7 @@ public class PelisysteemiTest {
 
     @Test
     public void testGetVuoro() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         Tarkastaja t = new Tarkastaja(sys);
         Minimax m = new Minimax(t, sys);
         sys.setMinimax(m);
@@ -41,7 +41,7 @@ public class PelisysteemiTest {
      */
     @Test
     public void testGetVuoroArvona() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         Tarkastaja t = new Tarkastaja(sys);
         Minimax m = new Minimax(t, sys);        
         sys.setMinimax(m);
@@ -60,7 +60,7 @@ public class PelisysteemiTest {
      */
     @Test
     public void testVuoroEteenpäin() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         Tarkastaja t = new Tarkastaja(sys);
         Minimax m = new Minimax(t, sys);    
         sys.setMinimax(m);
@@ -94,7 +94,7 @@ public class PelisysteemiTest {
      */
     @Test
     public void testGetArvoTaulukosta() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         sys.setArvoTaulukkoon(0, 0, 10);
         assertEquals(10, sys.getArvoTaulukosta(0, 0));
     }
@@ -104,7 +104,7 @@ public class PelisysteemiTest {
      */
     @Test
     public void testGetTaulukonPituus() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         assertEquals(3, sys.getTaulukonPituus());
         
         Pelisysteemi sys2 = new Pelisysteemi(10);
@@ -113,7 +113,7 @@ public class PelisysteemiTest {
 
     @Test
     public void testVuorojaJaljella() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         Tarkastaja t = new Tarkastaja(sys);
         Minimax m = new Minimax(t, sys);
         sys.setTarkastaja(t);

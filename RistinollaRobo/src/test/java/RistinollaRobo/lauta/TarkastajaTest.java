@@ -421,7 +421,7 @@ public class TarkastajaTest {
 
     @Test
     public void testTarkastaDiagonalPieniTaulukko() {
-        Pelisysteemi sys = new Pelisysteemi();
+        Pelisysteemi sys = new Pelisysteemi(3);
         Tarkastaja tark = new Tarkastaja(sys);
         sys.setArvoTaulukkoon(0, 0, 10);
         sys.setArvoTaulukkoon(1, 1, 10);
