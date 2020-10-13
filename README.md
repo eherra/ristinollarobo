@@ -20,17 +20,19 @@ javafx {
 Mikäli gradle tool löytyy ladattuna koneeltasi, voit käynnistää sovelluksen terminaalista 'gradle run' komennolla kansiosta, jossa 'build.gradle' läsnä (kansio 'ristinollarobo'). Muuten ajathan sovelluksen IDE:lläsi.
 </br>
 Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
-</br>
-## Dokumentit 
 
+## Dokumentit 
+* [Määrittelydokumentti](https://github.com/eherra/ristinollarobo/tree/master/dokumentaatio/dokumentit)
+* [Toteutusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)
+* [Testausdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Testausdokumentti.md)
 
 ## Viikkoraportit 
-[Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
-[Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)</br>
-[Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)</br>
-[Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)</br>
-[Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)</br>
-[Viikkoraportti 6](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti6.md)
+* [Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)
+* [Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)
+* [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)
+* [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)
+* [Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)
+* [Viikkoraportti 6](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti6.md)
 </br>
 
 
