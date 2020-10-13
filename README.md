@@ -23,10 +23,10 @@ Ajaaksesi testit, aja 'gradle test' terminaalista 'ristinollarobo' kansiosta.
 </br>
 ## Dokumentit 
 
+
 ## Viikkoraportit 
-[MIT](https://choosealicense.com/licenses/mit/)
 [Viikkoraportti 1](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti1.md)</br>
-[Viikkoraportti 2](viikkoraportti2.md)</br>
+[Viikkoraportti 2](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti2.md)</br>
 [Viikkoraportti 3](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti3.md)</br>
 [Viikkoraportti 4](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti4.md)</br>
 [Viikkoraportti 5](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/viikkoraportti5.md)</br>
