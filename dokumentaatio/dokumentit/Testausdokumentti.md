@@ -10,5 +10,4 @@ Testejä ajetaan Gradle toolin avulla terminaalista. Tämä onnistuu navigoimall
 </br>
 </br>
 Alla kuvat jacocon luomista testauskattavuusyhteenvedoista:
-<img src="https://ibb.co/7Jbc6Cm">
-
+<img src="https://i.ibb.co/bg7h8m9/Screen-Shot-2020-10-14-at-20-57-53.png">
