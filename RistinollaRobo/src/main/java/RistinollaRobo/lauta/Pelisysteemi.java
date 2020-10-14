@@ -65,16 +65,6 @@ public class Pelisysteemi {
     public boolean vuorojaJaljella() {
         return vuoro != taulukko.length * taulukko.length;
     }
-    
-    public void tulostaTaulu() {
-        for (int i = 0; i < taulukko.length; i++) {
-            for (int j = 0; j < taulukko.length; j++) {
-                System.out.print(taulukko[i][j] + " ");
-            }
-            System.out.println("");
-        }
-        System.out.println("");
-    }
 }
 
     

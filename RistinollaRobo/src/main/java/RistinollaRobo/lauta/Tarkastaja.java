@@ -163,8 +163,6 @@ public class Tarkastaja {
         return ikkunaLiuku(luvut);
     }
     
-    
-    
     public boolean sisaltaakoVoittoArvon(int rivi) {
         if (sys.getTaulukonPituus() == 3) { // pieni taulu
             if (rivi == 3 || rivi == 30) {
