@@ -1,7 +1,6 @@
 
 package RistinollaRobo.ui;
 
-
 import RistinollaRobo.ui.Kayttoliittyma;
 import javafx.application.Application;
 
