@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RistinollaRobo.lauta.TarkastajaTest" tests="35" skipped="0" failures="0" errors="0" timestamp="2020-10-14T15:39:26" hostname="Eliass-MacBook-Air.local" time="0.063">
+  <properties/>
+  <testcase name="testTarkastaVaakaKeskirivinAlku" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.008"/>
+  <testcase name="testTarkastaPystyKeskeltäNeljaMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaPystyKeskeltäKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testVasenYlhaaltaDiagnolOikeaYlaosaMerkitErikseen" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaVaakaAlimmanrivinKeski" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testOikeaYlhaaltaDiagonalVasenAlasAlaosaMerkitErikseen" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaVaakaTokanrivinLoppu" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testVasenYlhaaltaDiagonalAlasOikeaAlaosaMerkitErikseen" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testOikeaYlhaaltaDiagonalVasenAlasAlaosaKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagnolOikeaYlaosaKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testOikeaYlhaaltaDiagonalVasenAlasAlaosaOikeaReuna" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testVasenYlhaaltaDiagnolOikeaYlaosa" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaDiagonalIsompiLauta" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaPystyVasenReunaKeski" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaVaakaKeskeltäKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaVaakaKeskeltäKaksiMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagonalAlasOikeaAlaosaKeskeltä" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testOikeaYlhaaltaDiagonalVasenAlasAlaosaKeskelta" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testOikeaYlhaaltaDiagnolVasenAlasYlaosaMerkitErikseen" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.01"/>
+  <testcase name="testOikeaYlhaaltaDiagonalVasenAlasAlaosa" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.002"/>
+  <testcase name="testTarkastaPystyKeskeltäMerkitErikseen" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.004"/>
+  <testcase name="testOikeaYlhaaltaDiagnolVasenAlasYlaosaKeskeltä" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testOikeaYlhaaltaDiagnolVasenAlasYlaosaKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaPystyVasenReunaKeskiK" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaDiagonalPieniTaulukko" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaPystyOikeaReuna" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagonalAlasOikeaAlaosaAlaReuna" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagonalAlasOikeaAlaosa" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testOikeaYlhaaltaDiagnolVasenAlasYlaosa" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagnolOikeaYlaosaOikeaReuna" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testTarkastaPysty" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testTarkastaVaaka" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testVasenYlhaaltaDiagnolOikeaYlaosaKeskeltä" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.0"/>
+  <testcase name="testOikeaYlhaaltaDiagnolVasenAlasYlaosaVasenReuna" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <testcase name="testVasenYlhaaltaDiagonalAlasOikeaAlaosaKolmeMerkkia" classname="RistinollaRobo.lauta.TarkastajaTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

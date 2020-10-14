@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Tarkastaja.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RistinollaRobo</a> &gt; <a href="index.source.html" class="el_package">RistinollaRobo.lauta</a> &gt; <span class="el_source">Tarkastaja.java</span></div><h1>Tarkastaja.java</h1><pre class="source lang-java linenums">
+package RistinollaRobo.lauta;
+
+import RistinollaRobo.lauta.Pelisysteemi;
+import java.util.Arrays;
+
+/**
+ * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
+ * Luokasta poistettu Javan valmiit tietorakenteet ja metodit
+ * 
+ * @param Pelisysteemi-luokka, josta saamme pelilaudan tiedot haettua tarkastusta varten
+ */
+
+public class Tarkastaja {
+    private Pelisysteemi sys;
+    private int taulukonPituus;
+    private boolean ristiFlag, nollaFlag; // tiedetään kumman voittoon tilanne päätynyt
+    private int tarkistettavaRivi;
+    
+<span class="fc" id="L20">    public Tarkastaja(Pelisysteemi systeemi) {</span>
+<span class="fc" id="L21">        ristiFlag = false;</span>
+<span class="fc" id="L22">        nollaFlag = false;</span>
+<span class="fc" id="L23">        sys = systeemi;</span>
+<span class="fc" id="L24">        taulukonPituus = sys.getTaulukonPituus();</span>
+<span class="fc" id="L25">    }</span>
+    
+    public int laskePistearvo(int x, int y) {     
+<span class="fc bfc" id="L28" title="All 6 branches covered.">        if (tarkastaVaaka(x, y) || tarkastaPysty(x, y) || tarkastaDiagonal(x, y)) return kummanVoittoon();           </span>
+<span class="fc" id="L29">        return 0;</span>
+    }
+    
+    public int kummanVoittoon() {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (ristiFlag) { // johtaa 'X' pelaajan voittoon</span>
+<span class="fc" id="L34">            ristiFlag = false;</span>
+<span class="fc" id="L35">            return 100;</span>
+        } 
+        
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        if (nollaFlag) { // johtaa 'O' pelaajan voittoon</span>
+<span class="fc" id="L39">            nollaFlag = false;</span>
+<span class="fc" id="L40">            return -100;</span>
+        } 
+<span class="nc" id="L42">        return -1; // riviin ei päästä koskaan</span>
+    }
+    
+    // 3x3 pienen taulun tarkastukset
+    public boolean tarkastaPieniTauluVaaka(int x) {
+<span class="fc" id="L47">        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(x, 0) + sys.getArvoTaulukosta(x, 1) + sys.getArvoTaulukosta(x, 2));</span>
+    }
+
+    public boolean tarkastaPieniTauluPysty(int y) {
+<span class="fc" id="L51">        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, y) + sys.getArvoTaulukosta(1, y) + sys.getArvoTaulukosta(2, y));</span>
+    }  
+
+    public boolean tarkastaDiagonalPieniTaulukko() {
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, 0) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 2))) return true;</span>
+<span class="fc" id="L56">        return sisaltaakoVoittoArvon(sys.getArvoTaulukosta(0, 2) + sys.getArvoTaulukosta(1, 1) + sys.getArvoTaulukosta(2, 0));</span>
+    } 
+    
+    /**
+     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa
+     * (window sliding technique) rivin lukujen läpikäyntiin mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
+     * eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
+     * @param viimesinX 
+     * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
+     */
+    public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
+<span class="fc bfc" id="L67" title="All 2 branches covered.">        if (taulukonPituus == 3) return (tarkastaPieniTauluVaaka(viimesinX));</span>
+        
+<span class="pc bpc" id="L69" title="1 of 4 branches missed.">        if (viimesinY &lt; 5 &amp;&amp; taulukonPituus &gt; 9) { // tämä nopeuttamaan tarkastusta isoimmille laudoille eli koko 10x10 ja ylöspäin. jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle</span>
+<span class="fc" id="L70">            int[] luvut = new int[taulukonPituus - (5 - viimesinY)]; </span>
+<span class="fc bfc" id="L71" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L72">                luvut[i] = sys.getArvoTaulukosta(viimesinX, i);</span>
+            }
+<span class="fc bfc" id="L74" title="All 2 branches covered.">            if (ikkunaLiuku(luvut)) return true;</span>
+<span class="pc bpc" id="L75" title="1 of 4 branches missed.">        } else if (taulukonPituus - viimesinY &lt; 5 &amp;&amp; taulukonPituus &gt; 9) { // jos ollaan oikeassa laidassa</span>
+<span class="fc" id="L76">            int[] luvut = new int[taulukonPituus - (viimesinY - 4)];</span>
+<span class="fc" id="L77">            int alku = viimesinY - 4;</span>
+            
+<span class="fc bfc" id="L79" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L80">                luvut[i] = sys.getArvoTaulukosta(viimesinX, alku);</span>
+<span class="fc" id="L81">                alku++;</span>
+            }
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (ikkunaLiuku(luvut)) return true;</span>
+<span class="fc" id="L84">        } else { </span>
+<span class="fc" id="L85">            int[] luvut = new int[taulukonPituus];</span>
+<span class="fc bfc" id="L86" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L87">                luvut[i] = sys.getArvoTaulukosta(viimesinX, i);</span>
+            }
+<span class="pc bpc" id="L89" title="1 of 2 branches missed.">            if (ikkunaLiuku(luvut)) return true;</span>
+        }
+<span class="fc" id="L91">       return false;</span>
+    }
+    
+    public boolean tarkastaPysty(int viimesinX, int viimesinY) { 
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (taulukonPituus == 3) return tarkastaPieniTauluPysty(viimesinY);  </span>
+        
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">        if (viimesinX &lt; 5 &amp;&amp; taulukonPituus &gt; 9) {</span>
+<span class="fc" id="L98">            int[] luvut = new int[taulukonPituus - (5 - viimesinX)];</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L100">                luvut[i] = sys.getArvoTaulukosta(i, viimesinY);</span>
+            }
+<span class="fc bfc" id="L102" title="All 2 branches covered.">            if (ikkunaLiuku(luvut)) return true;</span>
+<span class="pc bpc" id="L103" title="1 of 4 branches missed.">        } else if (viimesinX &gt; 5 &amp;&amp; taulukonPituus &gt; 9) {</span>
+<span class="fc" id="L104">            int[] luvut = new int[taulukonPituus - (viimesinX - 4)];</span>
+<span class="fc" id="L105">            int alku = viimesinX - 4;</span>
+
+<span class="fc bfc" id="L107" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L108">                luvut[i] = sys.getArvoTaulukosta(alku, viimesinY);</span>
+<span class="fc" id="L109">                alku++;</span>
+            }
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            if (ikkunaLiuku(luvut)) return true;</span>
+<span class="nc" id="L112">        } else {</span>
+<span class="fc" id="L113">            int[] luvut = new int[taulukonPituus];</span>
+<span class="fc bfc" id="L114" title="All 2 branches covered.">            for (int i = 0; i &lt; luvut.length; i++) {</span>
+<span class="fc" id="L115">                luvut[i] = sys.getArvoTaulukosta(i, viimesinY);</span>
+            }
+<span class="pc bpc" id="L117" title="1 of 2 branches missed.">            if (ikkunaLiuku(luvut)) return true;</span>
+        }
+<span class="fc" id="L119">        return false;</span>
+    }  
+    
+    public boolean tarkastaDiagonal(int x, int y) {
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (taulukonPituus == 3) return tarkastaDiagonalPieniTaulukko();</span>
+<span class="fc bfc" id="L124" title="All 4 branches covered.">        return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));</span>
+    }
+    
+    // tarkastetaan tällä hetkellä koko diagonal rivi kohdasta viimesinX, viimesinY
+    public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
+<span class="fc" id="L129">        int[] luvut = new int[taulukonPituus];</span>
+        
+        while (true) { // mennään diagonal rivin alkuun
+<span class="fc bfc" id="L132" title="All 4 branches covered.">            if (viimesinX == 0 || viimesinY == taulukonPituus - 1) break;</span>
+<span class="fc" id="L133">            viimesinX--;</span>
+<span class="fc" id="L134">            viimesinY++;</span>
+        }
+<span class="fc" id="L136">        int ind = 0;</span>
+        while (true) { // muodostetaan taulukko johon diagonal kohdan arvot
+<span class="fc bfc" id="L138" title="All 4 branches covered.">            if (viimesinX == taulukonPituus || viimesinY == -1) break; // jos taulukon reunassa</span>
+<span class="fc" id="L139">            luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);</span>
+<span class="fc" id="L140">            viimesinX++;</span>
+<span class="fc" id="L141">            viimesinY--;</span>
+<span class="fc" id="L142">            ind++;</span>
+        }
+<span class="fc" id="L144">        return ikkunaLiuku(luvut);</span>
+    }
+    
+    public boolean tarkastaOikeaDiagonal(int viimesinX, int viimesinY) {
+<span class="fc" id="L148">        int[] luvut = new int[taulukonPituus];</span>
+        
+        while (true) { // pumpataan rivin alkuun
+<span class="fc bfc" id="L151" title="All 4 branches covered.">            if (viimesinX == 0 || viimesinY == 0) break;</span>
+<span class="fc" id="L152">            viimesinX--;</span>
+<span class="fc" id="L153">            viimesinY--;</span>
+        }
+<span class="fc" id="L155">        int ind = 0;</span>
+        while (true) {
+<span class="fc bfc" id="L157" title="All 4 branches covered.">            if (viimesinX == taulukonPituus || viimesinY == taulukonPituus) break;</span>
+<span class="fc" id="L158">            luvut[ind] = sys.getArvoTaulukosta(viimesinX, viimesinY);</span>
+<span class="fc" id="L159">            viimesinX++;</span>
+<span class="fc" id="L160">            viimesinY++;</span>
+<span class="fc" id="L161">            ind++;</span>
+        }
+<span class="fc" id="L163">        return ikkunaLiuku(luvut);</span>
+    }
+    
+    public boolean sisaltaakoVoittoArvon(int rivi) {
+<span class="fc bfc" id="L167" title="All 2 branches covered.">        if (sys.getTaulukonPituus() == 3) { // pieni taulu</span>
+<span class="fc bfc" id="L168" title="All 4 branches covered.">            if (rivi == 3 || rivi == 30) {</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">                if (rivi == 3) ristiFlag = true; // tiedetään kumman voittoon päätynyt </span>
+<span class="fc bfc" id="L170" title="All 2 branches covered.">                if (rivi == 30) nollaFlag = true;</span>
+<span class="fc" id="L171">                return true;</span>
+            }
+        } else { // isompi taulu
+<span class="fc bfc" id="L174" title="All 4 branches covered.">            if (rivi == 5 || rivi == 50) {</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">                if (rivi == 5) ristiFlag = true;</span>
+<span class="fc bfc" id="L176" title="All 2 branches covered.">                if (rivi == 50) nollaFlag = true;</span>
+<span class="fc" id="L177">                return true;</span>
+            }
+        }
+<span class="fc" id="L180">        return false;</span>
+    }
+    // window sliding tekniikka
+    public boolean ikkunaLiuku(int[] luvut) {
+<span class="fc" id="L184">        int ikkunanSumma = 0;</span>
+<span class="fc bfc" id="L185" title="All 2 branches covered.">        for (int i = 0; i &lt; 5; i++) { // lasketaan eka ikkuna</span>
+<span class="fc" id="L186">            ikkunanSumma += luvut[i];</span>
+        }
+<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;</span>
+        
+<span class="fc bfc" id="L190" title="All 2 branches covered.">        for (int i = 0; i &lt; luvut.length - 5; i++) { // liikutetaan ikkunaa yhdellä eteenpäin</span>
+<span class="fc" id="L191">            ikkunanSumma -= luvut[i];</span>
+<span class="fc" id="L192">            ikkunanSumma += luvut[i+5];</span>
+<span class="fc bfc" id="L193" title="All 2 branches covered.">            if (sisaltaakoVoittoArvon(ikkunanSumma)) return true;</span>
+        }
+<span class="fc" id="L195">        return false;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>
