@@ -110,14 +110,14 @@ public class Minimax {
     
     public int asetaMaxSyvyys() {
         if (sys.getTaulukonPituus() == 3) return 9;
-        int tyhjia = getTyhjienMaara();
+        int tyhjienMaara = getTyhjienMaara();
         
-        if (tyhjia > 40) return 3;
-        if (tyhjia > 30) return 4;
-        if (tyhjia > 25) return 5;
-        if (tyhjia > 20) return 6;
-        if (tyhjia > 15) return 7;
-        if (tyhjia > 10) return 8;
+        if (tyhjienMaara > 40) return 3;
+        if (tyhjienMaara > 30) return 4;
+        if (tyhjienMaara > 25) return 5;
+        if (tyhjienMaara > 20) return 6;
+        if (tyhjienMaara > 15) return 7;
+        if (tyhjienMaara > 10) return 8;
         
         return 9;
     } 
