@@ -1,6 +1,8 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'application'
+apply plugin: 'checkstyle'
+
 
 mainClassName = 'RistinollaRobo.ui.Main'
 
@@ -26,3 +28,4 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
