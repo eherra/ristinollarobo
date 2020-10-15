@@ -31,8 +31,8 @@ if (!onkoRuutujaJaljella()) return 0; // tämä metodi laukeaa, mikäli kaikki r
                         taulukko[i][j] = 1; 
                         ruutujaPelattuMaara++; // pidetään kirjaa että montako ruutua pelattu
                         int lasku = suoritaMinimax(taulukko, syvyys + 1, alpha, beta, !onkoMaxVuorossa, i, j);
-                        taulukko[i][j] = 0; // backtracking, palautetetaan ruutu tyhjaksi
-                        ruutujaPelattuMaara--; // backtracking, palautetaan ruutujen käyttöastetta  
+                        taulukko[i][j] = 0; 
+                        ruutujaPelattuMaara--; // palautetaan ruutujen käyttöastetta  
 ```
 Kyseinen metodi toimii O(1) ajassa, sillä se vertaa mikäli ruutujaPelattuMaara == ruutujen yhteismäärä (taulukon.pituus * taulukon.pituus). Tosin Minimax-algoritmi laskee pelitilanteita loppuun asti vasta pelin lopussa, kun maksimisyvyys antaa myöden, joten tämä nopeuttaa hieman pelin loppuja.
 ## Tietorakenteet sekä tilavaativuudet
@@ -40,11 +40,10 @@ Ohjelmassani ei hirveästi tarvinnut alkuunkaan Javan valmiita tietorakenteita. 
 </br>
 </br>
 Minimax-algoritmin tilavaativuutena on O(bm).
-## Voittorivien tarkastamiset
-Ohjelma tarkastaa tehokkaasti voittorivien muodostamisen vain kohdasta, johon viimesin siirto on tehty. Isoimmissa tauluissa vaaka- ja pystyrivit tarkastetaan luomalla ensin int[] taulukko, jonka pituus on mahdollisen voittorivien lukujen määrä eli esim jos rivin koko on 10 ja pelattu kohta on indeksi 2, tällöin taulukon pituus on 7, sillä voittorivi voi muodostua indeksien 0-7 välille. Tämän jälkeen taulukko käydään läpi window sliding-tekniikkaa apuna käyttäen, jossa ikkunan koko on 5. 
-</br>
-</br>
+### Voittorivien tarkastamiset
+Ohjelma tarkastaa tehokkaasti voittorivien muodostamisen vain kohdasta, johon viimesin siirto on tehty. Isoimmissa tauluissa vaaka- ja pystyrivit tarkastetaan luomalla ensin int[] taulukko, jonka pituus on mahdollisen voittorivien lukujen määrä eli esim jos rivin koko on 10 ja pelattu kohta on indeksi 2 riviltä, tällöin taulukon pituus on 7, sillä voittorivi voi muodostua indeksien 0-6 välille. Tämän jälkeen taulukko käydään läpi window sliding-tekniikkaa apuna käyttäen, jossa ikkunan koko on 5. 
 Diagonal rivien tarkastamiseen taulukon pituus on pelilaudan pituus, sillä tarkastaminen oli hieman haastavampi tehdä.
+</br>
 </br>
 Tilavaativuutena vaaka- ja pystyrivien tarkastamiseen on O(n), jossa 'n' on int[] taulukon pituus.
 </br>
