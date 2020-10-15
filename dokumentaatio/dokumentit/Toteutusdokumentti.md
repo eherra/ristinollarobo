@@ -1,5 +1,4 @@
-# Toteustusdokumentti
-
+# Toteutusdokumentti
 RistinolloRobo on ristinollapelisovellus joka käyttää minimax-algoritmia apunaan laskemaan vastustajalla (AI) seuraavan siirron ja täten pelaaja (ihminen) voi pelata tietokonetta vastaan.
 </br>
 </br>
@@ -18,7 +17,7 @@ Minimax-algoritmiin olen lisännyt AlphaBeta-karsinnan, jolloin algoritmi nopeut
 Usein Minimax-algoritmissä todetaan onko siirtoja vielä jäljellä erillisellä metodilla, jossa käydään kaksiulotteiden taulukko läpi ja palautetaan 'true' mikäli taulukossa käyty kohta on vapaa. Worst case tilanteessa käydään koko taulukko läpi ja aikavaativuus on O(n^2), jossa 'n' on taulukon pituus. 
 </br>
 </br>
-Oivalsin, että kyseisen voi hoitaa pitämällä kirjaa Minimax-algoritmissa montako ruutua on pelattu eri rekursiivisten tilanteiden aikana ja palauttaa arvon takaisin, kun rekursio palaa kutsusta. Alla esimerkki tilanteesta:
+Kyseisen voi hoitaa pitämällä kirjaa Minimax-algoritmissa montako ruutua on pelattu eri rekursiivisten tilanteiden aikana ja palauttaa arvon takaisin, kun rekursio palaa kutsusta. Alla koodi kohdasta:
 ```java
 if (!onkoRuutujaJaljella()) return 0; // tämä metodi laukeaa, mikäli kaikki ruudut pelattu
 
@@ -52,8 +51,9 @@ Diagonal tarkastaminen myös O(n), jossa 'n' on pelilaudan pituus.
 ## Puutteet/parannukset
 Aina löytyisi viilattavaa sekä koodia saisi refaktoroitua siistimmäksi, mutta päivässä olevat tunnit ovat rajalliset. </br>
 AlphaBeta-karsintaa olisi saanut tehokkaammaksi, jos olisi saanut heuristisesti syötettyä tilanteita ja siirtoja fiksummaksi, mikäli olisi pisteyttänyt laudan esim. kulmakohdat huonommiksi pisteiksi, jolloin AI ei pelaisi näitä niin herkästi ainakaan pelin alussa.</br>
-Olisin mielelläni graafiseen käyttöliittymään lisännyt pieniäyksityiskohtia esimerkiksi viimeisimmän siirron kohta värilliseksi ja voittorivin yliviivaus.
+Olisi voinut graafiseen käyttöliittymään lisätä pieniä yksityiskohtia esimerkiksi viimeisimmän siirron kohta värilliseksi ja voittorivin yliviivaus.
 
 ## Lähteet
 https://www.javatpoint.com/mini-max-algorithm-in-ai </br>
-https://www.javatpoint.com/ai-alpha-beta-pruning
+https://www.javatpoint.com/ai-alpha-beta-pruning</br>
+https://www.faceprep.in/data-structures/space-complexity/
