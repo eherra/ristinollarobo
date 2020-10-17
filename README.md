@@ -1,5 +1,8 @@
 # RistinollaRobo
 Ristinollapeli, jossa AI vastus. Vaihtoehdot pelata laudan kokoja 3x3, 10x10, 15x15. Isoimmissa laudoissa voittorivin pituus 5 merkkiä.
+
+<img src="https://i.ibb.co/cYXBWt2/Screen-Shot-2020-10-14-at-19-26-15.png">
+
 ## Dokumentit 
 * [Määrittelydokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Maarittelydokumentti.md)
 * [Toteutusdokumentti](https://github.com/eherra/ristinollarobo/blob/master/dokumentaatio/dokumentit/Toteutusdokumentti.md)
