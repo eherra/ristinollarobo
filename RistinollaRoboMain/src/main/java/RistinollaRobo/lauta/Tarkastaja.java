@@ -39,7 +39,7 @@ public class Tarkastaja {
             nollaFlag = false;
             return -100;
         } 
-        return -1; // riviin ei päästä koskaan
+        return -1; // riviä ei suoriteta
     }
     
     // 3x3 pienen taulun tarkastukset
