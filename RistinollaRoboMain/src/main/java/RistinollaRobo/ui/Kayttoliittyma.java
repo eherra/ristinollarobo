@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 
 public class Kayttoliittyma extends Application {    
-    private Boolean keskiL, isoL;
+    private Boolean pelataankoKeskiLauta, pelataankoIsoLauta;
     private Stage ikkuna;
     private Button uusiPeli;
     
@@ -38,8 +38,8 @@ public class Kayttoliittyma extends Application {
     }
     
     public Scene getKaynnistysNaytto() {
-        keskiL = false;
-        isoL = false;
+        pelataankoKeskiLauta = false;
+        pelataankoIsoLauta = false;
         Button pieniLauta = new Button("3x3");
         Button keskiLauta = new Button("10x10");
         Button isoLauta = new Button("15x15");
@@ -79,24 +79,24 @@ public class Kayttoliittyma extends Application {
         kaynnistysNaytto.setRight(suljeNappi);
         
         pieniLauta.setOnMouseClicked(event -> {
-            keskiL = false;
-            isoL = false;
+            pelataankoKeskiLauta = false;
+            pelataankoIsoLauta = false;
             pieniLauta.setStyle("-fx-background-color: #5F9F9F");
             keskiLauta.setStyle("-fx-background-color: #B4CDCD");
             isoLauta.setStyle("-fx-background-color: #B4CDCD");
         });
         
         keskiLauta.setOnMouseClicked(event -> {
-            keskiL = true;
-            isoL = false;
+            pelataankoKeskiLauta = true;
+            pelataankoIsoLauta = false;
             pieniLauta.setStyle("-fx-background-color: #B4CDCD");
             keskiLauta.setStyle("-fx-background-color: #5F9F9F");
             isoLauta.setStyle("-fx-background-color: #B4CDCD");
         });
         
         isoLauta.setOnMouseClicked(event -> {
-            keskiL = false;
-            isoL = true;
+            pelataankoKeskiLauta = false;
+            pelataankoIsoLauta = true;
             pieniLauta.setStyle("-fx-background-color: #B4CDCD");
             keskiLauta.setStyle("-fx-background-color: #B4CDCD");
             isoLauta.setStyle("-fx-background-color: #5F9F9F");
@@ -222,8 +222,8 @@ public class Kayttoliittyma extends Application {
     }
     
     public int getLaudanKoko() {
-        if (keskiL) return 10;
-        if (isoL) return 15;
+        if (pelataankoKeskiLauta) return 10;
+        if (pelataankoIsoLauta) return 15;
         return 3;
     }
 }

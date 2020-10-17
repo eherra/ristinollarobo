@@ -57,8 +57,9 @@ public class Tarkastaja {
     } 
     
     /**
-     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa
-     * (window sliding technique) rivin lukujen läpikäyntiin mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
+     * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. 
+     * Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa (window sliding technique) rivin lukujen läpikäyntiin
+     * mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
      * eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
      * @param viimesinX 
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
@@ -66,8 +67,8 @@ public class Tarkastaja {
     public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
         if (taulukonPituus == 3) return (tarkastaPieniTauluVaaka(viimesinX));
         
-        if (viimesinY < 5 && taulukonPituus > 9) { // tämä nopeuttamaan tarkastusta isoimmille laudoille eli koko 10x10 ja ylöspäin. jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
-            int[] luvut = new int[taulukonPituus - (5 - viimesinY)]; 
+        if (viimesinY < 5 && taulukonPituus > 9) { // tämä nopeuttamaan tarkastusta isoimmille laudoille eli koko 10x10 ja ylöspäin. 
+            int[] luvut = new int[taulukonPituus - (5 - viimesinY)];  //jos ollaan vasemmassa laidassa kohdassa jossa ei voi 5 suoraa muodostua vasemmalle puolelle
             for (int i = 0; i < luvut.length; i++) {
                 luvut[i] = sys.getArvoTaulukosta(viimesinX, i);
             }
@@ -88,7 +89,7 @@ public class Tarkastaja {
             }
             if (ikkunaLiuku(luvut)) return true;
         }
-       return false;
+        return false;
     }
     
     public boolean tarkastaPysty(int viimesinX, int viimesinY) { 
@@ -128,6 +129,7 @@ public class Tarkastaja {
     public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
         int[] luvut = new int[taulukonPituus];
         
+        
         while (true) { // mennään diagonal rivin alkuun
             if (viimesinX == 0 || viimesinY == taulukonPituus - 1) break;
             viimesinX--;
@@ -146,7 +148,7 @@ public class Tarkastaja {
     
     public boolean tarkastaOikeaDiagonal(int viimesinX, int viimesinY) {
         int[] luvut = new int[taulukonPituus];
-        
+  
         while (true) { // pumpataan rivin alkuun
             if (viimesinX == 0 || viimesinY == 0) break;
             viimesinX--;

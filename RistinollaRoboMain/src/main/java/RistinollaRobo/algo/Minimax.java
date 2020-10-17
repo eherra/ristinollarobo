@@ -49,8 +49,7 @@ public class Minimax {
                 } 
             } 
             return parasPiste - syvyys; 
-        } 
-        else { 
+        } else { 
             int parasPiste = Integer.MAX_VALUE; 
 
             for (int i = 0; i < taulukko.length; i++) { 

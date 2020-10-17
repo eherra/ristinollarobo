@@ -2,7 +2,6 @@ package RistinollaRobo.lauta;
 
 
 import RistinollaRobo.algo.Minimax;
-import java.util.Arrays;
 import RistinollaRobo.lauta.Tarkastaja;
 /**
  * Pelisysteemi-luokka.
