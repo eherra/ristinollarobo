@@ -9,6 +9,11 @@ JUnit testeissä olen luonut eri pelitilanteita matriisiin ja syöttänyt näit�
 Testejä ajetaan Gradle toolin avulla terminaalista. Tämä onnistuu navigoimalla 'RistinollaRoboMain' kansiion ja suorittamalla 'gradle test' komennon. Mikäli testeistä jokin epäonnistuu, testeistä saa kattavan raportin html-muodossa. 
 </br>
 </br>
+<h2>Tehokkuustestit</h2>
+Tehokkuustesteissä testasin Minimax-algoritmin nopeutta kaikilla kolmella lautojen koilla sekä kahdessa eri pelitilanteessa - tekoälyn ensimmäinen siirto sekä ihmisen viiden suoran muodostumisen blokkaus. Alla kuva testien tuloksista:
+<img src="https://i.ibb.co/m5KnQhj/Screen-Shot-2020-10-20-at-10-34-48.png">
+</br>
+</br>
 Alla kuvat jacocon luomista testauskattavuusyhteenvedoista:
 <img src="https://i.ibb.co/bg7h8m9/Screen-Shot-2020-10-14-at-20-57-53.png">
 </br>

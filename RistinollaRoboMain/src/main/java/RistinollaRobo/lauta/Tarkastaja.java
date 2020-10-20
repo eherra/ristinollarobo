@@ -64,6 +64,7 @@ public class Tarkastaja {
      * @param viimesinX 
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
      */
+    
     public boolean tarkastaVaaka(int viimesinX, int viimesinY) { 
         if (taulukonPituus == 3) return (tarkastaPieniTauluVaaka(viimesinX));
         

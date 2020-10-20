@@ -153,8 +153,7 @@ public class Kayttoliittyma extends Application {
             uusiPeli.setVisible(false);
         });   
         
-        Scene pal = new Scene(asettelu);
-        return pal;
+        return new Scene(asettelu);
     }
     
     public GridPane lisaaNapit(Pelisysteemi systeemi, Label label, Tarkastaja tark, Minimax minimax) {        
