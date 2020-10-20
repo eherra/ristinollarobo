@@ -5,7 +5,6 @@ import RistinollaRobo.algo.Minimax;
 import RistinollaRobo.lauta.Pelisysteemi;
 import RistinollaRobo.lauta.Tarkastaja;
 
-
 public class Testit {
     public void suoritaTestit(Minimax mini) {
         long alku = System.nanoTime();

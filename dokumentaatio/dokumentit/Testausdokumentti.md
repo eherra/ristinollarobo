@@ -10,7 +10,8 @@ Testejä ajetaan Gradle toolin avulla terminaalista. Tämä onnistuu navigoimall
 </br>
 </br>
 <h2>Tehokkuustestit</h2>
-Tehokkuustesteissä testasin Minimax-algoritmin nopeutta kaikilla kolmella lautojen koilla sekä kahdessa eri pelitilanteessa - tekoälyn ensimmäinen siirto sekä ihmisen viiden suoran muodostumisen blokkaus. Alla kuva testien tuloksista:
+Tehokkuustesteissä testasin Minimax-algoritmin nopeutta kaikilla kolmella lautojen koilla sekä kahdessa eri pelitilanteessa - tekoälyn ensimmäinen siirto sekä ihmisen viiden suoran muodostumisen blokkaus. Tehokkuustestit saa ajettua main-luokasta kommentoimalla Application.launch.. pois ja vapauttamalla Testit olion kommentit. 
+ Alla kuva testien tuloksista:
 <img src="https://i.ibb.co/m5KnQhj/Screen-Shot-2020-10-20-at-10-34-48.png">
 </br>
 </br>
