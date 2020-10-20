@@ -126,7 +126,7 @@ public class Tarkastaja {
         return (tarkastaVasenDiagonal(x, y) || tarkastaOikeaDiagonal(x, y));
     }
     
-    // tarkastetaan tällä hetkellä koko diagonal rivi kohdasta viimesinX, viimesinY
+    // tarkastetaan koko diagonal rivi kohdasta viimesinX, viimesinY
     public boolean tarkastaVasenDiagonal(int viimesinX, int viimesinY) { 
         int[] luvut = new int[taulukonPituus];
         

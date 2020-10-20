@@ -99,8 +99,9 @@ public class Minimax {
         ruutujaPelattuMaara++;
     }
     
+    // onko tyhjiä paikkoja jäljellä
     public boolean onkoRuutujaJaljella() {
-        return ruutujaPelattuMaara != sys.getTaulukonPituus() * sys.getTaulukonPituus(); // onko tyhjiä paikkoja jäljellä
+        return ruutujaPelattuMaara != sys.getTaulukonPituus() * sys.getTaulukonPituus(); 
     }
     
     public int getTyhjienMaara() {
