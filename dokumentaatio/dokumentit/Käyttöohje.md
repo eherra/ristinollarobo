@@ -17,7 +17,7 @@ java --module-path $PATH_TO_OPENJFX-LIB --add-modules module_1,module_2,module_3
 
 Esimerkkinä:
 ```console
-java --module-path /usr/share/openjfx/lib --add-modules=javafx.controls,javafx.fxml -jar '/home/{YOURNAME}/ristinollarobo/RistinollaRobo.jar'
+java --module-path /usr/share/openjfx/lib --add-modules=javafx.controls,javafx.fxml -jar '/home/{USERNAME}/ristinollarobo/RistinollaRobo.jar'
 ```
 
 </br>
