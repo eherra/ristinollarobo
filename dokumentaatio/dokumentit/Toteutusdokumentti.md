@@ -50,7 +50,8 @@ Diagonal tarkastaminen myös O(n), jossa 'n' on pelilaudan pituus.
 
 ## Puutteet/parannukset
 Aina löytyisi viilattavaa sekä koodia saisi refaktoroitua siistimmäksi, mutta päivässä olevat tunnit ovat rajalliset. </br>
-AlphaBeta-karsintaa olisi saanut tehokkaammaksi, jos olisi saanut heuristisesti syötettyä tilanteita ja siirtoja fiksummaksi, mikäli olisi pisteyttänyt laudan esim. kulmakohdat huonommiksi pisteiksi, jolloin AI ei pelaisi näitä niin herkästi ainakaan pelin alussa.</br>
+Ohjelman teko olisi ollut paljon suoraviivaisempaa, jos olisin tuon Ohjelmistotekniikka-kurssin käynyt ennen tätä projektia, mutta opit meni perilli kumminkin omien virheiden kautta esim ohjelman luokat ovat riippuvaisia toisistaan mikä ei aina täysin fiksua. </br>
+AlphaBeta-karsinnasta olisi saanut enemmän irit, jos olisi saanut heuristisesti syötettyä tilanteita, ja siirtoja fiksummaksi, mikäli olisi pisteyttänyt laudan esim. kulmakohdat huonommiksi pisteiksi, jolloin AI ei pelaisi näitä niin herkästi ainakaan pelin alussa.</br>
 Olisi voinut graafiseen käyttöliittymään lisätä pieniä yksityiskohtia esimerkiksi viimeisimmän siirron kohta värilliseksi ja voittorivin yliviivaus.
 
 ## Lähteet
