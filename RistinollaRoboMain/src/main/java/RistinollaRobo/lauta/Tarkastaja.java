@@ -6,8 +6,6 @@ import java.util.Arrays;
 
 /**
  * Tarkastaja-luokalla on metodit pelin päättymisen todentamiseen. 
- * Luokasta poistettu Javan valmiit tietorakenteet ja metodit
- * 
  * @param Pelisysteemi-luokka, josta saamme pelilaudan tiedot haettua tarkastusta varten
  */
 
@@ -58,9 +56,6 @@ public class Tarkastaja {
     
     /**
      * Voittorivin tarkastus isompiin tauluihin. Tarkastaa vain kohdata mihin voi syntyä 5 suora. 
-     * Tarkastus tehokas, käytetään ikkuna liuku tekniikkaa (window sliding technique) rivin lukujen läpikäyntiin
-     * mutta koodin luettavuus kärsi hieman, kun turhia kohtia ei tarkasteta riviltä
-     * eli paikat johon pelatusta kohdasta ei voi syntyä 5 suoraa.
      * @param viimesinX 
      * @param viimesinY viimeisimmän paikan koordinaatit mihin ihminen tai tekoäly on pelannut.
      */

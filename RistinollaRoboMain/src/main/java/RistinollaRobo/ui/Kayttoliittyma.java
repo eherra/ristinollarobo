@@ -22,7 +22,6 @@ import javafx.stage.Stage;
 /**
  * RistinollaRobon käyttöliittymä JavaFX:llä.
  * Laudan koot 3x3, 10x10 ja 15x15 - valittavissa kaynnistysruudusta. 
- * Koot 3x3 sekä 10x10 toimii sutjakkaasti, mutta 15x15 lauta alkaa olemaan hieman hidas, noin 2-10s per siirto AI:lla.
  */
 
 public class Kayttoliittyma extends Application {    

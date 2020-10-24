@@ -5,8 +5,7 @@ import RistinollaRobo.algo.Minimax;
 import RistinollaRobo.lauta.Tarkastaja;
 /**
  * Pelisysteemi-luokka.
- * Luokka pitää kirjaa pelitilanteista ja luokasta saadaan tiedot vuorosta sekä pelattujen vuorojen määrästä
- * Luokasta poistettu Javan valmiit metodit ja tietorakenteet. 
+ * Luokka pitää kirjaa pelitilanteista ja luokasta saadaan tiedot vuorosta sekä pelattujen vuorojen määrästä.
  */
 
 public class Pelisysteemi {
@@ -16,7 +15,7 @@ public class Pelisysteemi {
     private Minimax minimax;
 
     /**
-     * @param koko laudan koko riippuen pelaajan valinnasta
+     * @param koko pelattavan laudan koko riippuen pelaajan valinnasta
      */
     public Pelisysteemi(int koko) { // jos valitaan isompi alusta
         this.taulukko = new int[koko][koko];  

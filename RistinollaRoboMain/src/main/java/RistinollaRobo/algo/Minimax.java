@@ -5,8 +5,7 @@ import RistinollaRobo.lauta.Pelisysteemi;
 import RistinollaRobo.lauta.Tarkastaja;
 
 /**
- *
- * @author balooza
+ * Minimax-luokka, josta saamme peliin parhaimman siirron laskettua
  */
 public class Minimax {
     private Tarkastaja tark;
@@ -15,7 +14,6 @@ public class Minimax {
     private int ruutujaPelattuMaara, maxSyvyys;
     
     /**
-     *
      * @param tark - pelin tarkastaukseen oleva luokka
      * @param sys - pelinkulkuun oleva luokka
      */
@@ -70,10 +68,14 @@ public class Minimax {
         } 
     }
     
+    /**
+     * Parhaan liikkeen koordinaattien selvittämiseen.
+     * @return palauttaa arrayn jossa indeksi 0 on X-koordinaati ja indeksi 1 on Y-koordinaati
+     */
     public int[] getParasLiike() {
         int parasArvo = Integer.MAX_VALUE; 
         liike = new int[2];
-        maxSyvyys = asetaMaxSyvyys();
+        maxSyvyys = getMaxSyvyys();
 
         for (int i = 0; i < sys.getTaulukonPituus(); i++) { 
             for (int j = 0; j < sys.getTaulukonPituus(); j++) { 
@@ -95,6 +97,9 @@ public class Minimax {
         return liike; 
     } 
     
+    /**
+     * Pidetään kirjaa pelattujen ruutujen määrästä
+     */
     public void pelattujaRuutujaPlus() {
         ruutujaPelattuMaara++;
     }
@@ -108,7 +113,11 @@ public class Minimax {
         return sys.getTaulukonPituus() * sys.getTaulukonPituus() - ruutujaPelattuMaara;
     }
     
-    public int asetaMaxSyvyys() {
+    /**
+     * @return palauttaa syvyyden johon asti minimax-algoritmi laskeaa pelitilanteita. Syvyys riippuu pelilaudalla olevien
+     * tyhjien ruutujen määrästä.
+     */
+    public int getMaxSyvyys() {
         if (sys.getTaulukonPituus() == 3) return 9;
         int tyhjienMaara = getTyhjienMaara();
         

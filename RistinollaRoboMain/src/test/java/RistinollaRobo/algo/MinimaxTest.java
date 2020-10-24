@@ -68,13 +68,13 @@ public class MinimaxTest {
         Minimax m = new Minimax(t, s);        
         s.setMinimax(m);
         s.setTarkastaja(t);
-        assertEquals(9, m.asetaMaxSyvyys());
+        assertEquals(9, m.getMaxSyvyys());
         
         Pelisysteemi s1 = new Pelisysteemi(10);
         Tarkastaja t1 = new Tarkastaja(s);
         Minimax m1 = new Minimax(t1, s1);        
         s1.setMinimax(m1);
         s1.setTarkastaja(t1);
-        assertEquals(3, m1.asetaMaxSyvyys());
+        assertEquals(3, m1.getMaxSyvyys());
     }
 }
