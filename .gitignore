@@ -1,4 +1,8 @@
 .gradle
+build
+nbproject
+LICENSE
+
 
 # Compiled class file
 *.class
