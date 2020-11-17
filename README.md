@@ -2,8 +2,8 @@
 Ristinollapeli, jossa AI vastus. Vaihtoehdot pelata laudan kokoja 3x3, 10x10, 15x15. Isoimmissa laudoissa voittorivin pituus 5 merkkiä.
 
 <p float="left">
-  <img src="https://i.ibb.co/cYXBWt2/Screen-Shot-2020-10-14-at-19-26-15.png" width="439" height="410">
-  <img src="https://i.ibb.co/Z1cFpR0/loppu.png" width="439" height="410">
+  <img src="https://i.ibb.co/cYXBWt2/Screen-Shot-2020-10-14-at-19-26-15.png" width="409" height="380">
+  <img src="https://i.ibb.co/Z1cFpR0/loppu.png" width="409" height="380">
 </p>
 
 ## Dokumentit 
