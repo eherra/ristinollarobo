@@ -1,7 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'application'
-apply plugin: 'checkstyle'
 
 mainClassName = 'RistinollaRobo.ui.Main'
 
@@ -15,7 +14,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'RistinollaRobo.ui.Main'
+        attributes 'Main-Class': 'RistinollaRobo.ui.Main' 
     }
 }
 
@@ -34,7 +33,3 @@ jacocoTestReport {
 
 check.dependsOn jacocoTestReport
 
-checkstyle {
-    toolVersion = '6.16.1'
-    config = config = rootProject.resources.text.fromFile('/Users/balooza/ristinollarobo/RistinollaRoboMain/checkstyle.xml')
-}

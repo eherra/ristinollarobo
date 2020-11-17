@@ -224,4 +224,5 @@ public class Kayttoliittyma extends Application {
         if (pelataankoIsoLauta) return 15;
         return 3;
     }
+    
 }
