@@ -1,8 +1,8 @@
-package RistinollaRobo.lauta;
+package robo.lauta;
 
 
-import RistinollaRobo.algo.Minimax;
-import RistinollaRobo.lauta.Tarkastaja;
+import robo.algo.Minimax;
+import robo.lauta.Tarkastaja;
 /**
  * Pelisysteemi-luokka.
  * Luokka pitää kirjaa pelitilanteista ja luokasta saadaan tiedot vuorosta sekä pelattujen vuorojen määrästä.

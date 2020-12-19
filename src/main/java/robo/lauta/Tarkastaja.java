@@ -1,7 +1,7 @@
 
-package RistinollaRobo.lauta;
+package robo.lauta;
 
-import RistinollaRobo.lauta.Pelisysteemi;
+import robo.lauta.Pelisysteemi;
 import java.util.Arrays;
 
 /**

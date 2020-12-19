@@ -1,8 +1,7 @@
+package robo.algo;
 
-package RistinollaRobo.algo;
-
-import RistinollaRobo.lauta.Pelisysteemi;
-import RistinollaRobo.lauta.Tarkastaja;
+import robo.lauta.Pelisysteemi;
+import robo.lauta.Tarkastaja;
 
 /**
  * Minimax-luokka, josta saamme peliin parhaimman siirron laskettua

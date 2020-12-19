@@ -1,9 +1,9 @@
 
-package TehokkuusTestit;
+package tehokkuustestit;
 
-import RistinollaRobo.algo.Minimax;
-import RistinollaRobo.lauta.Pelisysteemi;
-import RistinollaRobo.lauta.Tarkastaja;
+import robo.algo.Minimax;
+import robo.lauta.Pelisysteemi;
+import robo.lauta.Tarkastaja;
 
 public class Testit {
     public void suoritaTestit(Minimax mini) {

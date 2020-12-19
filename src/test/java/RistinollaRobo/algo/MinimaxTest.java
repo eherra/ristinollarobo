@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package RistinollaRobo.algo;
+package robo.algo;
 
-import RistinollaRobo.algo.Minimax;
-import RistinollaRobo.lauta.Pelisysteemi;
-import RistinollaRobo.lauta.Tarkastaja;
-import org.junit.Before;
+import robo.algo.Minimax;
+import robo.lauta.Pelisysteemi;
+import robo.lauta.Tarkastaja;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-/**
- *
- * @author balooza
- */
 public class MinimaxTest {
 
     
