@@ -11,7 +11,7 @@ git clone https://github.com/eherra/ristinollarobo.git
 sudo apt install openjfx
 ```
 
-2. Mikäli **Gradle tool** löytyy ladattuna koneeltasi, voit käynnistää sovelluksen terminaalista 
+2. Mikäli **Gradle tool** löytyy ladattuna koneeltasi, voit käynnistää sovelluksen terminaalista:
 ```console
 gradle run
 ```
@@ -19,7 +19,7 @@ gradle run
 * Mikäli gradlea ei löydy sinulta, voit ajaa sovelluksen myös IDE:lläsi. 
 * linkki gradlen lautaukseen [lataa gradle](https://gradle.org/install)
 
-Käynnistyessä aukeaa graafinen käyttöliittymä, josta ensin valitaan pelilaudan koko ja painetaan "Käynnistä peli!" nappia. Pelinäytöltä voit navigoida takaisin aloitusnäytölle oikeasta yläkulmasta löytyvällä "Takaisin" napista
+Ohjelman käynnistyessä aukeaa graafinen käyttöliittymä, josta valitaan pelilaudan koko ja painetaan "Käynnistä peli!" nappia. Pelinäytöltä voit navigoida takaisin aloitusnäytölle oikeasta yläkulmasta löytyvällä "Takaisin" napista
 
 Ajaaksesi testit, aja terminaalista komento:
 ```console
