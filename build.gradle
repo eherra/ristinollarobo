@@ -2,6 +2,7 @@ plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
     id 'jacoco'
+    id 'java'
 }
 
 mainClassName = 'robo.ui.Main'
@@ -14,9 +15,15 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'robo.ui.Main'
+    }
+}
+
 javafx {
     version = "14"
-    modules = [ 'javafx.controls', 'javafx.fxml','javafx.graphics']
+    modules = [ 'javafx.controls','javafx.graphics']
 }
 
 
@@ -34,5 +41,3 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
-
-
